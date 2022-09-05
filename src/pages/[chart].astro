@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Seo from '../components/Seo.vue';
+import TempChart from '../components/TempChart.vue';
+
+
+export async function getStaticPaths() {
+  const data = await fetch('https://weatherstation.jh220.de/api/get?id=2').then(r => r.json());
+  const keys = Object.keys(data);
+  var routes: Array<Object> = [];
+  for (let i = 0; i < keys.length; i++) {
+    routes.push({ params: { chart: keys[i] } });
+  }
+  return routes;
+}
+
+const { chart } = Astro.params;
+const f_data = await fetch('https://weatherstation.jh220.de/api/get?id=2').then(r => r.json());
+var data;
+if (chart != undefined) {
+  data = f_data[chart]
+} else {
+  data = {}
+}
+---
+
+<Seo></Seo>
+<Layout title="Data">
+  <TempChart client:idle data={ data } chart_type={ chart }/>
+  <!--<TempChart client:idle data={{ use }}/>-->
+	<!--<TempChart client:idle data={{part25}} />-->
+	<!--<TempChart client:visible data={{part10}} />-->
+</Layout>

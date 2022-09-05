@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Seo from '../components/Seo.vue';
+import Container from '../components/Container.vue';
+
+var error = false;
+const data = await fetch('https://weatherstation.jh220.de/api/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
+var keys = Object.keys(data);
+var keys_and_id = [];
+var formatted = [];
+for (let i = 0; i < keys.length; i++) {
+	const key = keys[i];
+	const id = (key == 'temperature') ? 'Temperatur': ((key == 'humidity') ? 'Luftfeuchtigkeit' : ((key == 'air_pressure') ? 'Luftdruck' : ((key == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
+	keys_and_id.push([key, id]);
+	formatted[i] = [keys[i],data[keys[i]]];
+}
+
+---
+
+<Seo></Seo>
+<Layout title="Main">
+	{error ? <p>Error while loading data from api...</p> : <Container client:load data={ formatted } keys={ keys_and_id } />}
+</Layout>
