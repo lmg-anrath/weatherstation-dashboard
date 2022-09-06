@@ -19,6 +19,8 @@
     "vue": "^3.2.37"
   },
   "dependencies": {
+    "@astrojs/deno": "^1.0.1",
+    "@astrojs/node": "^1.0.1",
     "chart.js": "^3.9.1",
     "vue-chartjs": "^4.1.1"
   }

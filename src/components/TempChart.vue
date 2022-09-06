@@ -22,10 +22,21 @@
 
 <script>
 import { Bar, Line } from 'vue-chartjs';
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
+import * as ChartImport from 'chart.js';
+//import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.mjs';
 import Range from './Range.vue';
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement)
+const {
+  Chart,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale,
+} = ChartImport.default ? ChartImport.default : ChartImport;
+Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement)
 
 export default {
   name: 'TempChart',
@@ -73,12 +84,15 @@ export default {
       this.heading = (name == 'temperature') ? 'Temperatur': ((name == 'humidity') ? 'Luftfeuchtigkeit' : ((name == 'air_pressure') ? 'Luftdruck' : ((name == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
       var labels = [];
       var datasets = [];
+      var use_datasets = [];
       for (let i = data.length - len; i < data.length; i++) {
         const label = data[i].x.split('.')[0];
         labels.push(label.split('T')[0] + '    ' + label.split('T')[1]);
         var y = data[i].y;
         datasets.push(y);
       }
+      use_datasets[0] = datasets;
+      use_datasets[1] = datasets;
       this.max_num = parseInt(data.length / 4);
       const res = {
         labels: labels,
@@ -86,7 +100,15 @@ export default {
           {
             label: name,
             backgroundColor: 'rgb(151, 155, 209)',
-            data: datasets,
+            data: use_datasets[0],
+            borderColor: 'rgb(151, 155, 209)',
+            fill: false,
+            cubicInterpolationMode: 'monotone',
+          },
+          {
+            label: name,
+            backgroundColor: 'rgb(151, 255, 209)',
+            data: [1,2],
             borderColor: 'rgb(151, 155, 209)',
             fill: false,
             cubicInterpolationMode: 'monotone',
@@ -94,6 +116,13 @@ export default {
         ]
       }
       return res;
+    },
+    shuffle(arr) {
+      var res_arr = arr;
+      for (let i = 0; i < res_arr.length; i++) {
+        res_arr[i] += Math.floor(Math.random() * (10 + 10 + 1) - 10)
+      }
+      return res_arr;
     },
     update_range(e) {
       this.chart_data = this.get_data(parseInt(e));

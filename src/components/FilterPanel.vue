@@ -1,7 +1,7 @@
 <template>
   <div id="panel">
     <div id="logo-container">
-      <img id="logo" src="lmg.png" alt="logo">
+      <img id="logo" src="/lmg.png" alt="logo">
     </div>
     <div id="hide-show-ctrl">
       <div id="data" v-for="(item, index) in inputs" :key="index">
@@ -10,6 +10,13 @@
         </div>
       </div>
     </div>
+    <!--<div id="station-ctrl">
+      <div id="data" v-for="(item, index) in inputs" :key="index">
+        <div class="check">
+          <input v-on:change="check($event)" :item_id="item[0]" type="checkbox" checked="true">{{item[1]}}
+        </div>
+      </div>
+    </div>-->
     <div id="buttons">
       <div>
         <button @click="range_click($event)" class="time-btn" val="day">TAG</button>
