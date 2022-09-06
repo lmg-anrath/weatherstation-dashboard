@@ -84,7 +84,7 @@ export default {
       this.heading = (name == 'temperature') ? 'Temperatur': ((name == 'humidity') ? 'Luftfeuchtigkeit' : ((name == 'air_pressure') ? 'Luftdruck' : ((name == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
       var labels = [];
       var datasets = [];
-      var use_datasets = [];
+      /*var use_datasets = [];
       for (let i = data.length - len; i < data.length; i++) {
         const label = data[i].x.split('.')[0];
         labels.push(label.split('T')[0] + '    ' + label.split('T')[1]);
@@ -92,28 +92,24 @@ export default {
         datasets.push(y);
       }
       use_datasets[0] = datasets;
-      use_datasets[1] = datasets;
+      use_datasets[1] = datasets;*/
+      for (let i = 0; i < data.length; i++) {
+        const color = `rgb(${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)})`;
+        datasets.push({
+          label: name,
+          backgroundColor: color,
+          data: data[i].data,
+          borderColor: color,
+          fill: false,
+          cubicInterpolationMode: 'monotone',
+        });
+        labels.push(data[i].station)
+      }
+      console.log(this.data[0].station)
       this.max_num = parseInt(data.length / 4);
       const res = {
         labels: labels,
-        datasets: [
-          {
-            label: name,
-            backgroundColor: 'rgb(151, 155, 209)',
-            data: use_datasets[0],
-            borderColor: 'rgb(151, 155, 209)',
-            fill: false,
-            cubicInterpolationMode: 'monotone',
-          },
-          {
-            label: name,
-            backgroundColor: 'rgb(151, 255, 209)',
-            data: [1,2],
-            borderColor: 'rgb(151, 155, 209)',
-            fill: false,
-            cubicInterpolationMode: 'monotone',
-          }
-        ]
+        datasets: datasets,
       }
       return res;
     },
@@ -144,13 +140,15 @@ export default {
         this.last_data = this.data;
         this.chart_data = this.get_data(this.data.length);
       }
-    }, 1000);
+    }, 200);
   },
   data() {
     return {
       chartOptions: {
         responsive: false,
         maintainAspectRatio: false,
+        pointRadius: 1,
+        pointHoverRadius: 4,
         plugins: {
             legend: false
         },

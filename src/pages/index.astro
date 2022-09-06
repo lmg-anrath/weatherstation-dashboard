@@ -3,24 +3,70 @@ import Layout from '../layouts/Layout.astro';
 import Seo from '../components/Seo.vue';
 import Container from '../components/Container.vue';
 
-var error = false;
-const data = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://weatherstation.jh220.de/api/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
+//var error = false;
+//const data = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://weatherstation.jh220.de/api/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
 
-const data1 = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://weatherstation.jh220.de/api/get?id=1&d=day').then(r => r.json()).catch(() => error = true);
-var keys = Object.keys(data);
-var keys_and_id = [];
-var formatted = [];
-for (let i = 0; i < keys.length; i++) {
-	const key = keys[i];
-	const id = (key == 'temperature') ? 'Temperatur': ((key == 'humidity') ? 'Luftfeuchtigkeit' : ((key == 'air_pressure') ? 'Luftdruck' : ((key == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
-	keys_and_id.push([key, id]);
-	//formatted[i] = [keys[i],data[keys[i]]];
-	formatted[i] = [keys[i],data[keys[i]]];
+//const data1 = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://weatherstation.jh220.de/api/get?id=1&d=day').then(r => r.json()).catch(() => error = true);
+//var keys = Object.keys(data);
+//var keys_and_id = [];
+//var formatted = [];
+//for (let i = 0; i < keys.length; i++) {
+//	const key = keys[i];
+//	const id = (key == 'temperature') ? 'Temperatur': ((key == 'humidity') ? 'Luftfeuchtigkeit' : ((key == 'air_pressure') ? 'Luftdruck' : ((key == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
+//	keys_and_id.push([key, id]);
+//	//formatted[i] = [keys[i],data[keys[i]]];
+//	formatted[i] = [keys[i],data[keys[i]]];
+//}
+
+var error = {
+	error: false,
+	error_string: ''
+};
+
+interface station_data {
+	station: string,
+	data: Object
+}
+interface chart {
+	type: string,
+	station_data: Array<station_data> | undefined
 }
 
+var station_keys;
+
+try {
+	station_keys = await (await fetch('https://weatherstation.jh220.de/api/stations')).json();
+	console.log(station_keys)
+} catch (err: Error) {
+	console.log('Err')
+	error.error = true;
+	error.error_string = err;
+}
+
+const temp_chart: chart = { type: 'temperature', station_data: [] };
+const humi_chart: chart = { type: 'humidity', station_data: [] };
+const pres_chart: chart = { type: 'air_pressure', station_data: [] };
+const part_25_chart: chart = { type: 'air_particle_pm25', station_data: [] };
+const part_10_chart: chart = { type: 'air_particle_pm10', station_data: [] };
+for (let i = 1; i <= station_keys.length; i++) {
+	try {
+		const res = await (await fetch(`https://weatherstation.jh220.de/api/get?id=${i}&d=day`)).json();
+		temp_chart.station_data?.push({ station: station_keys[i-1], data: res.temperature });
+		humi_chart.station_data?.push({ station: station_keys[i-1], data: res.humidity });
+		pres_chart.station_data?.push({ station: station_keys[i-1], data: res.air_pressure });
+		part_25_chart.station_data?.push({ station: station_keys[i-1], data: res.air_particle_pm25 });
+		part_10_chart.station_data?.push({ station: station_keys[i-1], data: res.air_particle_pm10 });
+	} catch (err: Error) {
+		console.log('Err')
+		error.error = true;
+		error.error_string = err;
+	}
+}
+console.log(temp_chart)
+const data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];
 ---
 
 <Seo></Seo>
 <Layout title="LMG Wetterdaten">
-	{error ? <p>Error while loading data from api...</p> : <Container client:load data={ formatted } keys={ keys_and_id } />}
+	{error.error ? <p>Error while loading data from api...</p> : <Container client:load data={ data } />}
 </Layout>
