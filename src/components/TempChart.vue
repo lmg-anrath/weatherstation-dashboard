@@ -107,7 +107,7 @@ export default {
     }
   },
   mounted() {
-    this.chart_data = this.get_data(24 * 4);
+    this.chart_data = this.get_data(this.data.length);
     this.chart_id = this.$props.chart_type;
     setInterval(() => {
       if (this.data != this.last_data) {

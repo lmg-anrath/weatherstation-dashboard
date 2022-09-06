@@ -4,7 +4,7 @@ import Seo from '../components/Seo.vue';
 import Container from '../components/Container.vue';
 
 var error = false;
-const data = await fetch('https://weatherstation.jh220.de/api/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
+const data = await fetch('http://localhost:1111/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
 var keys = Object.keys(data);
 var keys_and_id = [];
 var formatted = [];
