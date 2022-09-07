@@ -36,7 +36,6 @@ var station_keys;
 
 try {
 	station_keys = await (await fetch('https://weatherstation.jh220.de/api/stations')).json();
-	console.log(station_keys)
 } catch (err: Error) {
 	console.log('Err')
 	error.error = true;
@@ -62,7 +61,6 @@ for (let i = 1; i <= station_keys.length; i++) {
 		error.error_string = err;
 	}
 }
-console.log(temp_chart)
 const data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];
 ---
 

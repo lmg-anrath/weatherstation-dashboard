@@ -21,8 +21,9 @@
 </template>
 
 <script>
-import { Bar, Line } from 'vue-chartjs';
+import { Bar, Line } from 'vue-chartjs'
 import * as ChartImport from 'chart.js';
+
 //import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.mjs';
 import Range from './Range.vue';
 const {
@@ -36,7 +37,7 @@ const {
   CategoryScale,
   LinearScale,
 } = ChartImport.default ? ChartImport.default : ChartImport;
-Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement)
+Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement);
 
 export default {
   name: 'TempChart',
@@ -79,37 +80,43 @@ export default {
   },
   methods: {
     get_data(len) {
+      var data_num = 0;
       var data = this.$props.data;
       const name = this.$props.chart_type;
       this.heading = (name == 'temperature') ? 'Temperatur': ((name == 'humidity') ? 'Luftfeuchtigkeit' : ((name == 'air_pressure') ? 'Luftdruck' : ((name == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
       var labels = [];
       var datasets = [];
-      /*var use_datasets = [];
-      for (let i = data.length - len; i < data.length; i++) {
-        const label = data[i].x.split('.')[0];
-        labels.push(label.split('T')[0] + '    ' + label.split('T')[1]);
-        var y = data[i].y;
-        datasets.push(y);
-      }
-      use_datasets[0] = datasets;
-      use_datasets[1] = datasets;*/
       for (let i = 0; i < data.length; i++) {
         const color = `rgb(${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)})`;
+        var use_data = [];
+        for (let x = 0; x < data[i].data.length; x++) {
+          labels.push(data[i].data[x].x);
+          use_data[x] = {
+            "x": data[i].data[x].x,//Math.round((new Date(data[i].data[x].x)).getTime() / 1000),
+            "y": data[i].data[x].y,
+          }
+        }
         datasets.push({
           label: name,
           backgroundColor: color,
-          data: data[i].data,
+          data: use_data,/*{
+            "x": data[i].data.x,
+            "y": data[i].data.y
+          },*/
           borderColor: color,
           fill: false,
           cubicInterpolationMode: 'monotone',
         });
-        labels.push(data[i].station)
+        if (use_data.length > data_num) {
+          data_num = use_data.length;
+        }
+        //labels.push(data[i].station); 
       }
-      console.log(this.data[0].station)
-      this.max_num = parseInt(data.length / 4);
+      this.max_num = parseInt(data_num / 4);
       const res = {
-        labels: labels,
-        datasets: datasets,
+        datasets: datasets
+        //labels: ['2015-03-15T13:03:00Z'],//labels,//datasets,
+        //datasets: datasets
       }
       return res;
     },
@@ -134,13 +141,13 @@ export default {
   mounted() {
     this.chart_data = this.get_data(this.data.length);
     this.chart_id = this.$props.chart_type;
-    setInterval(() => {
+    /*setInterval(() => {
       if (this.data != this.last_data) {
         console.log('NEW')
         this.last_data = this.data;
         this.chart_data = this.get_data(this.data.length);
       }
-    }, 200);
+    }, 200);*/
   },
   data() {
     return {
@@ -150,7 +157,7 @@ export default {
         pointRadius: 1,
         pointHoverRadius: 4,
         plugins: {
-            legend: false
+            legend: false,
         },
         interaction: {
           intersect: false,
@@ -163,7 +170,7 @@ export default {
                 grace: (this.$props.chart_type == 'temperature' || this.$props.chart_type == 'air_pressure') ? '15%' : '0'
             },
             x: {
-                display: false
+                display: false,
             },
         },
         animation: true
@@ -175,7 +182,12 @@ export default {
       max_num: 0,
       last_data: {}
     }
-  }
+  },
+  watch: {
+    data: (new_val, old_val) => {
+      this.chart_data = this.get_data(this.data.length);
+    }
+  },
 }
 </script>
 

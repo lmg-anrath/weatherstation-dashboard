@@ -34,6 +34,11 @@ export default {
       const element = document.getElementById(id);
       element.hidden = !element.hidden;
     },
+    test() {
+      console.log('mnt')
+      console.log('X')
+      this.use_data = {}
+    },
     async change_range(e) {
       var error = {
         error: false,
