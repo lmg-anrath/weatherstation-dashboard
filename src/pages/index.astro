@@ -4,9 +4,9 @@ import Seo from '../components/Seo.vue';
 import Container from '../components/Container.vue';
 
 var error = false;
-const data = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://weatherstation.jh220.de/api/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
+const data = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://api-wetterstation-lmg.de/get?id=2&d=day').then(r => r.json()).catch(() => error = true);
 
-const data1 = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://weatherstation.jh220.de/api/get?id=1&d=day').then(r => r.json()).catch(() => error = true);
+const data1 = await fetch(/*'http://localhost:1111/get?id=2&d=day'*/'https://api-wetterstation-lmg.de/api/get?id=1&d=day').then(r => r.json()).catch(() => error = true);
 var keys = Object.keys(data);
 var keys_and_id = [];
 var formatted = [];

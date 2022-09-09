@@ -35,7 +35,7 @@ export default {
       element.hidden = !element.hidden;
     },
     async change_range(e) {
-      const data = await fetch(`https://weatherstation.jh220.de/api/get?id=2&d=${e}`).then(r => r.json());
+      const data = await fetch(`https://api.wetterstation-lmg.de/get?id=2&d=${e}`).then(r => r.json());
       var keys = Object.keys(data);
       var keys_and_id = [];
       var formatted = [];
