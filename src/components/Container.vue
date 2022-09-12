@@ -3,7 +3,9 @@
     <FilterPanel @range_clicked="change_range($event)" @clicked="change_visibility($event)" :inputs="keys" />
   </div>
   <div v-for="(item, index) in use_data" :key="index">
-    <TempChart :id="item.type" :data="item.station_data" :chart_type="item.type" />
+    <div v-if="item != undefined">
+      <TempChart :id="item.type" :data="item.station_data" :chart_type="item.type" />
+    </div>
   </div>
 </template>
 
@@ -40,6 +42,7 @@ export default {
       this.use_data = {}
     },
     async change_range(e) {
+      console.log(e)
       var error = {
         error: false,
         error_string: ''
@@ -59,7 +62,7 @@ export default {
       const part_10_chart = { type: 'air_particle_pm10', station_data: [] };
       for (let i = 1; i <= station_keys.length; i++) {
         try {
-          const res = await (await fetch(`https://weatherstation.jh220.de/api/get?id=${i}&d=day`)).json();
+          const res = await (await fetch(`https://weatherstation.jh220.de/api/get?id=${i}&d=${e}`)).json();
           temp_chart.station_data?.push({ station: station_keys[i-1], data: res.temperature });
           humi_chart.station_data?.push({ station: station_keys[i-1], data: res.humidity });
           pres_chart.station_data?.push({ station: station_keys[i-1], data: res.air_pressure });

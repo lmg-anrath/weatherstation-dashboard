@@ -35,7 +35,7 @@ interface chart {
 var station_keys;
 
 try {
-	station_keys = await (await fetch('https://weatherstation.jh220.de/api/stations')).json();
+	station_keys = await (await fetch('https://api.wetterstation-lmg.de/stations')).json();
 } catch (err: Error) {
 	console.log('Err')
 	error.error = true;
@@ -49,7 +49,7 @@ const part_25_chart: chart = { type: 'air_particle_pm25', station_data: [] };
 const part_10_chart: chart = { type: 'air_particle_pm10', station_data: [] };
 for (let i = 1; i <= station_keys.length; i++) {
 	try {
-		const res = await (await fetch(`https://weatherstation.jh220.de/api/get?id=${i}&d=day`)).json();
+		const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&d=day`)).json();
 		temp_chart.station_data?.push({ station: station_keys[i-1], data: res.temperature });
 		humi_chart.station_data?.push({ station: station_keys[i-1], data: res.humidity });
 		pres_chart.station_data?.push({ station: station_keys[i-1], data: res.air_pressure });
