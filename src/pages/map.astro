@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Seo from '../components/Seo.vue';
+import MapContainer from '../components/MapContainer.vue';
+---
+
+<Seo></Seo>
+<Layout title="Karte">
+  <MapContainer client:load />
+</Layout>

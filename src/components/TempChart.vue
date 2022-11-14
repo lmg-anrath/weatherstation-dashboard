@@ -1,16 +1,13 @@
 <template>
   <div class="main-chart-container">
     <p class="heading" style="padding-top: 30px;">
-      <a class="heading-link" :href="chart_id">{{heading}}</a>
+      <a class="heading-link" href="/">{{heading}}</a>
     </p>
-    <Range @rangechange="update_range($event)" :label_name="heading" :max="max_num"/>
+    <!--<Range @rangechange="update_range($event)" :label_name="heading" :max="max_num"/>-->
     <div class="chart-container">
       <Line
         :chart-options="chartOptions"
         :chart-data="chart_data"
-        :chart-id="chartId"
-        :dataset-id-key="datasetIdKey"
-        :plugins="plugins"
         :css-classes="cssClasses"
         :styles="styles"
         :width="width"
@@ -21,7 +18,10 @@
 </template>
 
 <script>
-import { Bar, Line } from 'vue-chartjs';
+
+import { Bar, Line } from 'vue-chartjs'
+//import Chart from 'chart.js/auto';
+
 import * as ChartImport from 'chart.js';
 //import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.mjs';
 import Range from './Range.vue';
@@ -35,21 +35,15 @@ const {
   PointElement,
   CategoryScale,
   LinearScale,
+  TimeScale,
+  TimeSeriesScale
 } = ChartImport.default ? ChartImport.default : ChartImport;
-Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement)
+Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, TimeScale, TimeSeriesScale);
+import 'chartjs-adapter-date-fns';
 
 export default {
-  name: 'TempChart',
   components: { Line, Range, Bar },
   props: {
-    chartId: {
-      type: String,
-      default: 'line-chart'
-    },
-    datasetIdKey: {
-      type: String,
-      default: 'label'
-    },
     width: {
       type: Number,
       default: 650
@@ -64,56 +58,51 @@ export default {
     },
     styles: {
       type: Object,
-      default: () => {}
+      default: () => {
+        return {
+          position: 'relative',
+        }
+      }
     },
-    plugins: {
-      type: Object,
-      default: () => {}
-    },
-    data: {
-      type: Object
-    },
-    chart_type: {
-      type: String
-    }
+    data: { type: Object },
+    chart_type: { type: String }
   },
   methods: {
-    get_data(len) {
+    get_data() {
+      var data_num = 0;
       var data = this.$props.data;
       const name = this.$props.chart_type;
       this.heading = (name == 'temperature') ? 'Temperatur': ((name == 'humidity') ? 'Luftfeuchtigkeit' : ((name == 'air_pressure') ? 'Luftdruck' : ((name == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
       var labels = [];
       var datasets = [];
-      var use_datasets = [];
-      for (let i = data.length - len; i < data.length; i++) {
-        const label = data[i].x.split('.')[0];
-        labels.push(label.split('T')[0] + '    ' + label.split('T')[1]);
-        var y = data[i].y;
-        datasets.push(y);
-      }
-      use_datasets[0] = datasets;
-      use_datasets[1] = datasets;
-      this.max_num = parseInt(data.length / 4);
-      const res = {
-        labels: labels,
-        datasets: [
-          {
-            label: name,
-            backgroundColor: 'rgb(151, 155, 209)',
-            data: use_datasets[0],
-            borderColor: 'rgb(151, 155, 209)',
-            fill: false,
-            cubicInterpolationMode: 'monotone',
-          },
-          {
-            label: name,
-            backgroundColor: 'rgb(151, 255, 209)',
-            data: [1,2],
-            borderColor: 'rgb(151, 155, 209)',
-            fill: false,
-            cubicInterpolationMode: 'monotone',
+      for (let i = 0; i < data.length; i++) {
+        const color = `rgb(${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)})`;
+        var use_data = [];
+        for (let x = 0; x < data[i].data.length; x++) {
+          labels.push(data[i].data[x].x + 'y');
+          var date = new Date(data[i].data[x].x);
+          date.setSeconds(0,0);
+          use_data[x] = {
+            "x": date,//Math.round((new Date(data[i].data[x].x)).getTime() / 1000),
+            "y": data[i].data[x].y,
           }
-        ]
+        }
+        const station = data[i].station;
+        datasets.push({
+          label: station,
+          backgroundColor: color,
+          data: use_data,
+          borderColor: color,
+          fill: false,
+          cubicInterpolationMode: 'monotone',
+        });
+        if (use_data.length > data_num) {
+          data_num = use_data.length;
+        }
+      }
+      this.max_num = parseInt(data_num / 4);
+      const res = {
+        datasets: datasets,
       }
       return res;
     },
@@ -125,6 +114,7 @@ export default {
       return res_arr;
     },
     update_range(e) {
+      console.log(e)
       this.chart_data = this.get_data(parseInt(e));
     },
     toggle_vis(e) {
@@ -138,35 +128,35 @@ export default {
   mounted() {
     this.chart_data = this.get_data(this.data.length);
     this.chart_id = this.$props.chart_type;
-    setInterval(() => {
-      if (this.data != this.last_data) {
-        console.log('NEW')
-        this.last_data = this.data;
-        this.chart_data = this.get_data(this.data.length);
-      }
-    }, 1000);
   },
   data() {
     return {
       chartOptions: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
+        pointRadius: 1,
+        pointHoverRadius: 4,
         plugins: {
-            legend: false
+            legend: false,
         },
         interaction: {
+          mode: 'x',
           intersect: false,
         },
         scales: {
-            y: {
-                display: true,
-                beginAtZero: (this.$props.chart_type == 'humidity') ? true : false,
-                max: (this.$props.chart_type == 'humidity') ? 100 : undefined,
-                grace: (this.$props.chart_type == 'temperature' || this.$props.chart_type == 'air_pressure') ? '15%' : '0'
-            },
-            x: {
-                display: false
-            },
+          x: {
+            type: "time",
+            position: "bottom",
+            display: true,
+          },
+          y: {
+            type: "linear",
+            position: "left",
+            display: true,
+            beginAtZero: (this.$props.chart_type == 'humidity') ? true : false,
+            max: (this.$props.chart_type == 'humidity') ? 100 : undefined,
+            grace: (this.$props.chart_type == 'temperature' || this.$props.chart_type == 'air_pressure') ? '15%' : '0'
+          }
         },
         animation: true
       },
@@ -177,11 +167,24 @@ export default {
       max_num: 0,
       last_data: {}
     }
-  }
+  },
+  watch: {
+    data: {
+      handler() {
+        this.chart_data = this.get_data(this.data.length);
+      },
+      deep: true
+    }
+  },
 }
 </script>
 
 <style>
+  .chart {
+    width: 650px;
+    height: 240px;
+    padding-left: 50px;
+  }
   .heading {
     color: rgb(185, 185, 196);
     text-align: center;
@@ -191,17 +194,16 @@ export default {
   }
   .heading-link {
     color: white;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .chart-container {
-    width: 50vw;
+    position: relative;
     padding: 0;
     margin: 0;
   }
-  #line-chart {
-    margin-left: calc(100px / 2);
-  }
   .main-chart-container {
-    background-color: rgb(51, 54, 72);
+    background-color: rgba(51, 54, 72, 0.689);
     width: 750px;
     height: 350px;
     border-radius: 15px;
@@ -209,14 +211,11 @@ export default {
   }
   @media screen and (max-width: 775px) {
     .main-chart-container {
-      background-color: rgb(51, 54, 72);
+      background-color: rgba(51, 54, 72, 0.689);
       width: 100vw;
-      height: calc(70vw);
+      height: 60vw;
       border-radius: 15px;
       margin-left: 1px;
-    }
-    body,html {
-      overflow-x: hidden;
     }
     .heading {
       width: 100vw;
@@ -225,12 +224,14 @@ export default {
       width: 100vw;
       overflow: hidden;
     }
-    #line-chart {
-      margin: 10px;
-    }
     canvas {
       max-width: 96vw;
       max-height: calc(0.3 * 96vw);
+    }
+    .chart {
+      width: 80vw;
+      height: 30vh;
+      padding-left: calc(7vw);
     }
   }
 </style>

@@ -1,27 +1,39 @@
 {
-  "name": "@example/basics",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "devDependencies": {
-    "@astrojs/react": "^1.0.0",
-    "@astrojs/renderer-react": "^0.5.0",
-    "@astrojs/vue": "^1.0.0",
-    "astro": "^1.0.9",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "vue": "^3.2.37"
-  },
-  "dependencies": {
-    "@astrojs/deno": "^1.0.1",
-    "@astrojs/node": "^1.0.1",
-    "chart.js": "^3.9.1",
-    "vue-chartjs": "^4.1.1"
-  }
+	"name": "weatherstation-dashboard",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/deno": "^1.0.1",
+		"@astrojs/node": "^1.0.1",
+		"chart.js": "^3.9.1",
+		"chartjs-adapter-date-fns": "^2.0.0",
+		"chartjs-adapter-luxon": "^1.2.0",
+		"chartjs-adapter-moment": "^1.0.0",
+		"chartjs-plugin-zoom": "^1.2.1",
+		"d3": "^7.6.1",
+		"date-fns": "^2.29.2",
+		"luxon": "^3.0.3",
+		"moment": "^2.29.4",
+		"ol": "^7.1.0",
+		"vue-chartjs": "^4.1.1",
+		"vue-cookie": "^1.1.4"
+	},
+	"devDependencies": {
+		"@astrojs/react": "^1.0.0",
+		"@astrojs/renderer-react": "^0.5.0",
+		"@astrojs/vue": "^1.0.0",
+		"astro": "^1.0.9",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"vue": "^3.2.37"
+	},
+	"author": "Lise-Meitner-Gymnasium Anrath Wetterstations-AG",
+	"license": "MIT"
 }

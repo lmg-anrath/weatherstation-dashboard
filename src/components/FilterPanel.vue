@@ -3,13 +3,13 @@
     <div id="logo-container">
       <img id="logo" src="/lmg.png" alt="logo">
     </div>
-    <div id="hide-show-ctrl">
+    <!--<div id="hide-show-ctrl">
       <div id="data" v-for="(item, index) in inputs" :key="index">
         <div class="check">
           <input v-on:change="check($event)" :item_id="item[0]" type="checkbox" checked="true">{{item[1]}}
         </div>
       </div>
-    </div>
+    </div>-->
     <!--<div id="station-ctrl">
       <div id="data" v-for="(item, index) in inputs" :key="index">
         <div class="check">
@@ -18,11 +18,19 @@
       </div>
     </div>-->
     <div id="buttons">
-      <div>
+      <div id="buttons-container">
+        <div class="time-btn-container">
         <button @click="range_click($event)" class="time-btn" val="day">TAG</button>
+        </div>
+        <div class="time-btn-container">
         <button @click="range_click($event)" class="time-btn" val="week">WOCHE</button>
+        </div>
+        <div class="time-btn-container">
         <button @click="range_click($event)" class="time-btn" val="month">MONAT</button>
+        </div>
+        <div class="time-btn-container">
         <button @click="range_click($event)" class="time-btn" val="year">JAHR</button>
+        </div>
       </div>
     </div>
   </div>
@@ -46,11 +54,11 @@ export default {
 
 <style>
   #panel {
-    width: 100vw;
+    width: 99.5vw;
     padding: 0;
     margin: 0;
     height: 120px;
-    background-color: rgba(38, 60, 57, 0.2);
+    background-color: #33325930;
   }
   #logo {
     height: 70px;
@@ -86,11 +94,23 @@ export default {
     vertical-align: middle;
     height: 120px;
     width: 70px;
-    padding-left: 5px;
+  }
+  .time-btn-container {
+    background-color: rgba(126, 134, 167, 0.2);
+    border-radius: 5px;
+    height: 30px;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
   }
   .time-btn {
     text-align: start;
     height: 30px;
     width: 70px;
+  }
+  #buttons-container {
+    max-height: 140px;
+    width: 150px;
+    padding-top: 25px;
   }
 </style>
