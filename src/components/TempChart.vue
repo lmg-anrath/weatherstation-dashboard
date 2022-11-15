@@ -1,6 +1,6 @@
 <template>
   <div class="main-chart-container">
-    <p class="heading" style="padding-top: 30px;">
+    <p class="heading">
       <a class="heading-link" href="/">{{heading}}</a>
     </p>
     <!--<Range @rangechange="update_range($event)" :label_name="heading" :max="max_num"/>-->
@@ -75,8 +75,10 @@ export default {
       this.heading = (name == 'temperature') ? 'Temperatur': ((name == 'humidity') ? 'Luftfeuchtigkeit' : ((name == 'air_pressure') ? 'Luftdruck' : ((name == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
       var labels = [];
       var datasets = [];
+      
       for (let i = 0; i < data.length; i++) {
-        const color = `rgb(${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)}, ${Math.floor(Math.random() * 244)})`;
+        console.log(data[i].color)
+        const color = `rgb(${data[i].color})`;
         var use_data = [];
         for (let x = 0; x < data[i].data.length; x++) {
           labels.push(data[i].data[x].x + 'y');
@@ -191,6 +193,7 @@ export default {
     width: 750px;
     font-size: 1.5rem;
     font-weight: 600;
+    padding-top: 30px;
   }
   .heading-link {
     color: white;
@@ -209,16 +212,17 @@ export default {
     border-radius: 15px;
     margin-left: calc(50vw - (750px / 2));
   }
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 700px) {
     .main-chart-container {
       background-color: rgba(51, 54, 72, 0.689);
       width: 100vw;
-      height: 60vw;
+      height: 250px;
       border-radius: 15px;
       margin-left: 1px;
     }
     .heading {
       width: 100vw;
+      padding-top: 20px;
     }
     .chart-container {
       width: 100vw;
@@ -226,11 +230,11 @@ export default {
     }
     canvas {
       max-width: 96vw;
-      max-height: calc(0.3 * 96vw);
+      max-height: calc(0.6 * 96vw);
     }
     .chart {
       width: 80vw;
-      height: 30vh;
+      height: 140px;
       padding-left: calc(7vw);
     }
   }

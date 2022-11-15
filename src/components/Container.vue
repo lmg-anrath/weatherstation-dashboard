@@ -75,11 +75,11 @@ export default {
       for (let i = 1; i <= station_keys.length; i++) {
         try {
           const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&d=${e}`)).json();
-          temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature });
-          humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity });
-          pres_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_pressure });
-          part_25_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm25 });
-          part_10_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm10 });
+          temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature, color: station_keys[i-1].color });
+          humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity, color: station_keys[i-1].color });
+          pres_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_pressure, color: station_keys[i-1].color });
+          part_25_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm25, color: station_keys[i-1].color });
+          part_10_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm10, color: station_keys[i-1].color });
         } catch (err) {
           error.error = true;
           error.error_string = err;
@@ -98,9 +98,6 @@ export default {
 </script>
 
 <style>
-/*#charts {
-  position: absolute;
-}*/
 #x {
   height: 350px;
   width: 750px;
