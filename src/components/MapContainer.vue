@@ -29,7 +29,8 @@
       MapOverlay
     },
     props: {
-      current_data: { type: Object }
+      current_data: { type: Object },
+      key: String
     },
     data() {
       return {
@@ -40,7 +41,6 @@
     },
     async mounted() {
       const station_keys = await (await fetch('https://api.wetterstation-lmg.de/stations')).json();
-      const key = '60301b3b55963fdbf42cdad2f99b8840'
       const points = {
         "Stations":[
           {
@@ -172,7 +172,7 @@
             station = points.Stations[i];
           }
         }
-        const res = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${station.lat}&lon=${station.long}&appid=${key}&units=metric`)).json();
+        const res = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${station.lat}&lon=${station.long}&appid=${this.key}&units=metric`)).json();
         this.over = true;
         this.name = station['name'];
         this.data = res.main;

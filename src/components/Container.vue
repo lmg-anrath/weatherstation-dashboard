@@ -11,7 +11,7 @@
       </div>
     </div>
     <div id="x" v-if="show_map">
-      <MapContainer :current_data="use_data" />
+      <MapContainer :key="keyy" :current_data="use_data" />
     </div>
   </div>
 </template>
@@ -42,7 +42,6 @@ export default {
   },
   mounted() {
     this.change_range('day');
-    console.log(this.keyy+ 'a')
   },
   methods: {
     change_visibility(x) {
