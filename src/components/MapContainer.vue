@@ -172,7 +172,7 @@
             station = points.Stations[i];
           }
         }
-        const res = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${station.lat}&lon=${station.long}&appid=${this.key}&units=metric`)).json();
+        const res = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${station.lat}&lon=${station.long}&appid=${this.keyi}&units=metric`)).json();
         this.over = true;
         this.name = station['name'];
         this.data = res.main;
