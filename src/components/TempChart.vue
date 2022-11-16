@@ -77,7 +77,6 @@ export default {
       var datasets = [];
       
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i].color)
         const color = `rgb(${data[i].color})`;
         var use_data = [];
         for (let x = 0; x < data[i].data.length; x++) {
@@ -85,7 +84,7 @@ export default {
           var date = new Date(data[i].data[x].x);
           date.setSeconds(0,0);
           use_data[x] = {
-            "x": date,//Math.round((new Date(data[i].data[x].x)).getTime() / 1000),
+            "x": date,
             "y": data[i].data[x].y,
           }
         }
@@ -116,7 +115,6 @@ export default {
       return res_arr;
     },
     update_range(e) {
-      console.log(e)
       this.chart_data = this.get_data(parseInt(e));
     },
     toggle_vis(e) {
@@ -184,21 +182,21 @@ export default {
 <style>
   .chart {
     width: 650px;
-    height: 240px;
-    padding-left: 50px;
+    height: 255px;
+    padding-left: 40px;
   }
   .heading {
-    color: rgb(185, 185, 196);
     text-align: center;
     width: 750px;
-    font-size: 1.2rem;
+    font-size: 26px;
     font-weight: 600;
     padding-top: 30px;
+    margin-bottom: 15px;
   }
   .heading-link {
-    color: white;
+    color: rgb(198, 211, 236);
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-underline-offset: 4px;
   }
   .chart-container {
     position: relative;
@@ -206,26 +204,27 @@ export default {
     margin: 0;
   }
   .main-chart-container {
-    background-color: rgba(51, 54, 72, 0.689);
+    background-color: rgba(91, 95, 96, 0.25);
     width: 750px;
     height: 350px;
     border-radius: 15px;
     margin-left: calc(50vw - (750px / 2));
   }
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 776px) {
     .main-chart-container {
-      background-color: rgba(51, 54, 72, 0.689);
-      width: 100vw;
+      width: 100%;
       height: 250px;
       border-radius: 15px;
-      margin-left: 1px;
+      margin: 0;
+      padding: 0;
     }
     .heading {
-      width: 100vw;
+      width: 100%;
       padding-top: 13px;
+      font-size: 23px;
     }
     .chart-container {
-      width: 100vw;
+      width: 100%;
     }
     canvas {
       max-width: 96vw;
@@ -233,7 +232,7 @@ export default {
     }
     .chart {
       width: 80vw;
-      height: 180px;
+      height: 185px;
       padding-left: calc(7vw);
     }
   }

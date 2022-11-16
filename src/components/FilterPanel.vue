@@ -146,11 +146,10 @@ export default {
   }
   #panel {
     overflow: hidden;
-    width: 100vw;
+    width: 100%;
     padding: 0;
     margin: 0;
     height: 100px;
-    /*background-color: #33325930;*/
     background-color: #1B263B;
     border-radius: 0 0 10px 10px;
     transition: height 0.2s;

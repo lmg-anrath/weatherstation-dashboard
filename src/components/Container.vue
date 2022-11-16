@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-bottom: 50px; position: relative;">
+  <div id="main">
     <div>
       <FilterPanel @range_clicked="change_range($event)" @clicked="change_visibility($event)" :inputs="keys" />
     </div>
@@ -10,8 +10,8 @@
         </div>
       </div>
     </div>
-    <div id="x">
-      <MapContainer />
+    <div id="x" v-if="show_map">
+      <MapContainer :current_data="use_data" />
     </div>
   </div>
 </template>
@@ -34,12 +34,13 @@ export default {
   },
   data() {
     return {
-      use_data: {}
+      use_data: {},
+      show_map: false,
+      station_keys: {}
     }
   },
   mounted() {
     this.change_range('day');
-    //this.use_data = this.data;
   },
   methods: {
     change_visibility(x) {
@@ -49,10 +50,10 @@ export default {
     },
     async change_range(e) {
       if (VueCookie.get(`data_${e}`) == 'true') {
-        console.log('cached');
         const c_data = JSON.parse(localStorage.getItem(`data_${e}`));
         if (c_data) {
           this.use_data = c_data;
+          this.show_map = true;
           return;
         }
       }
@@ -92,34 +93,47 @@ export default {
       var to = new Date(Math.ceil(now.getTime() / (1000 * 60 * 15)) * 1000 * 60 * 15);
       to.setSeconds(15,0);
       VueCookie.set(`data_${e}`, true, { expires: to });
+      this.show_map = true;
     }
   }
 }
 </script>
 
 <style>
+#main {
+  padding-bottom: 50px;
+  position: relative;
+}
+
 #x {
+  overflow: hidden;
   height: 350px;
   width: 750px;
   margin-left: calc(50vw - (750px / 2));
   margin-top: 30px;
   transition: all 0.1s;
+  background-color: rgb(242,243,224);
+  border-radius: 10px;
 }
 
 @media screen and (min-width: 775px) {
   #x:hover {
     width: 80vw;
-    height: 90vh;
+    height: 80vh;
     margin-left: calc(50vw - (80vw / 2));
     position: sticky;
   }
 }
 @media screen and (max-width: 775px) {
     #x {
-      width: 100vw;
-      height: 60vw;
+      width: 100%;
+      height: 100vw;
       border-radius: 15px;
-      margin-left: 1px;
+      margin-left: 0;
+    }
+    #main {
+      padding-bottom: 0px;
+      position: relative;
     }
   }
 </style>
