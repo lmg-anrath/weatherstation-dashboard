@@ -28,22 +28,22 @@
         </div>
       </div>
     </div>-->
-    <!--<div id="buttons">
+    <div id="buttons">
       <div id="buttons-container">
         <div class="time-btn-container">
-        <button @click="range_click($event)" class="time-btn" val="day">TAG</button>
+        <button title="Setze den anzuzeigenden Zeitraum auf 1 Tag (24h)" @click="range_click($event)" class="time-btn" val="day">TAG</button>
         </div>
         <div class="time-btn-container">
-        <button @click="range_click($event)" class="time-btn" val="week">WOCHE</button>
+        <button title="Setze den anzuzeigenden Zeitraum auf 1 Woche" @click="range_click($event)" class="time-btn" val="week">WOCHE</button>
         </div>
         <div class="time-btn-container">
-        <button @click="range_click($event)" class="time-btn" val="month">MONAT</button>
+        <button title="Setze den anzuzeigenden Zeitraum auf 1 Monat" @click="range_click($event)" class="time-btn" val="month">MONAT</button>
         </div>
         <div class="time-btn-container">
-        <button @click="range_click($event)" class="time-btn" val="year">JAHR</button>
+        <button title="Setze den anzuzeigenden Zeitraum auf 1 Jahr" @click="range_click($event)" class="time-btn" val="year">JAHR</button>
         </div>
       </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -99,6 +99,9 @@ export default {
   }
   @media screen and (max-width: 775px) {
     .links {
+      display: none;
+    }
+    #buttons {
       display: none;
     }
     #ddown {
@@ -169,7 +172,7 @@ export default {
   }
   #logo-container {
     height: 100px;
-    width: 160px;
+    width: 140px;
     display: inline-block;
     vertical-align: middle;
   }
@@ -187,7 +190,8 @@ export default {
     display: inline-block;
     vertical-align: middle;
     height: 100px;
-    width: 70px;
+    width: 145px;
+    
   }
   .time-btn-container {
     background-color: rgba(126, 134, 167, 0.2);
@@ -198,13 +202,15 @@ export default {
     margin-right: 5px;
   }
   .time-btn {
-    text-align: start;
+    text-align: center;
+    line-height: 31px;
     height: 30px;
     width: 70px;
+    padding: 0;
   }
   #buttons-container {
-    max-height: 140px;
+    max-height: 145px;
     width: 150px;
-    padding-top: 25px;
+    padding-top: 18px;
   }
 </style>

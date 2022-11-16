@@ -151,9 +151,9 @@
           this.over = true;
           this.name = v[0].getId().split('_')[0];
           const res = {
-            'temp': 0,
-            'humidity': 0,
-            'pressure': 0
+            'temp': -999,
+            'humidity': -999,
+            'pressure': -999
           }
           for (let i = 0; i < this.current_data[0].station_data.length; i++) {
             if (this.name == this.current_data[0].station_data[i].station) {

@@ -2,9 +2,9 @@
   <div id="overlay">
     <div id="content">
       <h2>{{name}}</h2>
-      <a>Temperatur: {{data.temp}} °C</a>
-      <p>Luftfeuchtigkeit: {{data.humidity}}%</p>
-      <p>Luftdruck: {{data.pressure}} hPa</p>
+      <a>Temperatur: {{(data.temp != -999) ? data.temp : '---'}} °C</a>
+      <p>Luftfeuchtigkeit: {{(data.humidity != -999) ? data.humidity : '---'}}%</p>
+      <p>Luftdruck: {{(data.pressure != -999) ? data.pressure : '---'}} hPa</p>
     </div>
   </div>
 </template>
