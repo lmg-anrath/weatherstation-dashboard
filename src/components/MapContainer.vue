@@ -39,7 +39,8 @@
       }
     },
     async mounted() {
-      console.log(import.meta.OPENWEATHERMAP_TOKEN)
+      const { OPENWEATHERMAP_TOKEN } = process.env;
+      console.log(OPENWEATHERMAP_TOKEN)
       const station_keys = await (await fetch('https://api.wetterstation-lmg.de/stations')).json();
       const key = '60301b3b55963fdbf42cdad2f99b8840'
       const points = {
