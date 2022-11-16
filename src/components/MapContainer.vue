@@ -188,8 +188,8 @@
 
 @media screen and (max-width: 775px) {
   #overlay {
-    --w: /*50vh;*/333px;
-    --h: /*30vh;*/200px;
+    --w: /*50vh;*/220px;
+    --h: /*30vh;*/170px;
     height: var(--h);
     width: var(--w);
     z-index: 10;
@@ -197,8 +197,9 @@
     left: 0;
     position: absolute;
     margin-left: calc(100vw - (50vw + var(--w) / 2));
-    margin-top: 75px; 
+    margin-top: 85px; 
     pointer-events: none;
+    font-size: 14px;
   }
 }
 

@@ -191,7 +191,7 @@ export default {
     color: rgb(185, 185, 196);
     text-align: center;
     width: 750px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     padding-top: 30px;
   }
@@ -226,7 +226,6 @@ export default {
     }
     .chart-container {
       width: 100vw;
-      overflow: hidden;
     }
     canvas {
       max-width: 96vw;
@@ -234,7 +233,7 @@ export default {
     }
     .chart {
       width: 80vw;
-      height: 160px;
+      height: 180px;
       padding-left: calc(7vw);
     }
   }

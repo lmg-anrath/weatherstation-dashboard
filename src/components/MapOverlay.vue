@@ -23,7 +23,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 #overlay {
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -35,14 +36,24 @@ export default {
 }
 #content {
   padding: 20px;
+  font-size: 20px;
 }
 a,p {
-  font-size: 20px;
   text-shadow: 0px 0px 6px #000000;;
 }
 h2 {
   padding: 0;
   margin-top: 0px;
   text-decoration: underline;
+  font-size: 22px;
+}
+
+@media screen and (max-width: 775px) {
+  #overlay {
+    font-size: 12px;
+  }
+  #content {
+    font-size: 14px;
+  }
 }
 </style>
