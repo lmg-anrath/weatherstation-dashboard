@@ -222,7 +222,7 @@ export default {
     }
     .heading {
       width: 100vw;
-      padding-top: 20px;
+      padding-top: 13px;
     }
     .chart-container {
       width: 100vw;
@@ -234,7 +234,7 @@ export default {
     }
     .chart {
       width: 80vw;
-      height: 140px;
+      height: 160px;
       padding-left: calc(7vw);
     }
   }

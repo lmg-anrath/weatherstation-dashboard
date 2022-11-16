@@ -72,13 +72,13 @@ export default {
       const panel = document.getElementById('panel');
       const icon = document.getElementById('icon');
       const ddown = document.getElementById('links-ddown-c');
-      if (panel.style.height == '380px') {
+      if (panel.style.height == '350px') {
         document.getElementById('panel').style.height = '100px';
         icon.style.color = 'white';
         ddown.style.opacity = '0';
       }
       else if (panel.style.height == '100px' || panel.style.height == '') {
-        document.getElementById('panel').style.height = '380px';
+        document.getElementById('panel').style.height = '350px';
         icon.style.color = 'rgb(100,100,100)';
         ddown.style.opacity = '1';
       }
@@ -134,7 +134,7 @@ export default {
     transition: opacity 0.2s;
   }
   .src-ddown {
-    font-size: 30px;
+    font-size: 18px;
   }
   .src {
     color: white;
@@ -146,15 +146,17 @@ export default {
   }
   #panel {
     overflow: hidden;
-    width: 99.5vw;
+    width: 100vw;
     padding: 0;
     margin: 0;
     height: 100px;
-    background-color: #33325930;
+    /*background-color: #33325930;*/
+    background-color: #1B263B;
+    border-radius: 0 0 10px 10px;
     transition: height 0.2s;
   }
   #logo {
-    height: 60px;
+    height: 55px;
     margin-top: 22px;
     margin-left: 22px;
     display: inline-block;
