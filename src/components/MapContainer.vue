@@ -30,7 +30,7 @@
     },
     props: {
       current_data: { type: Object },
-      key: String
+      keyi: String
     },
     data() {
       return {

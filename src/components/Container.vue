@@ -11,7 +11,7 @@
       </div>
     </div>
     <div id="x" v-if="show_map">
-      <MapContainer :key="keyy" :current_data="use_data" />
+      <MapContainer :keyi="keyy" :current_data="use_data" />
     </div>
   </div>
 </template>
