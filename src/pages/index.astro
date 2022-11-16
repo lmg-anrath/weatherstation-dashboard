@@ -49,9 +49,11 @@ for (let i = 1; i <= station_keys.length; i++) {
 const data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];*/
 //{error.error ? <p>Error while loading data from api...</p> : }
 const data = {};
+const key = import.meta.env.OPENWEATHERMAP_TOKEN;
+console.log(key);
 ---
 
 <Seo></Seo>
 <Layout title="LMG Wetterdaten">
-	<Container client:load data={ data } />
+	<Container client:load data={ data } keyy={ key } />
 </Layout>

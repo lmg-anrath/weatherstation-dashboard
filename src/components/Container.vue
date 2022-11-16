@@ -30,6 +30,7 @@ export default {
   },
   props: {
     data: Object,
+    keyy: String,
     keys: Array
   },
   data() {
@@ -41,6 +42,7 @@ export default {
   },
   mounted() {
     this.change_range('day');
+    console.log(this.keyy+ 'a')
   },
   methods: {
     change_visibility(x) {
