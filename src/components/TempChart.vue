@@ -146,6 +146,11 @@ export default {
         scales: {
           x: {
             type: "time",
+            time: {
+              displayFormats: {
+                hour: 'HH',
+              }
+            },
             position: "bottom",
             display: true,
           },
