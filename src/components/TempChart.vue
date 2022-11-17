@@ -140,7 +140,7 @@ export default {
             legend: false,
         },
         interaction: {
-          mode: 'x',
+          mode: 'index',
           intersect: false,
         },
         scales: {
