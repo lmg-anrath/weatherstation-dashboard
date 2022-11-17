@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script>
+<script lang="js">
 export default {
   props: {
     inputs: Array
@@ -102,7 +102,7 @@ export default {
       display: none;
     }
     #buttons {
-      display: none;
+      display: none !important;
     }
     #ddown {
       display: flex;
