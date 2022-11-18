@@ -106,9 +106,10 @@ export default {
       const res = {
         datasets: datasets,
       }
-      console.log(datasets)
+      /*console.log(datasets)
       if (datasets[2].data.length != datasets[3].data.length) {
         const misses = datasets[2].data.length - datasets[3].data.length;
+        console.log(misses)
         if (Math.abs(misses) > 100) {
           return res;
         }
@@ -123,18 +124,19 @@ export default {
           less_ds = 2;
         }
         var found = 0;
-        for (let i = 0; i < datasets[more_ds].data.length; i++) {
+        for (let i = 0; i < datasets[less_ds].data.length; i++) {
           if (new Date(datasets[2].data[i].x).getMinutes() != new Date(datasets[3].data[i].x).getMinutes()) {
             var mid = 0;
             mid = (datasets[less_ds].data[i - 1].y + datasets[less_ds].data[i + 1].y) / 2;
             datasets[less_ds].data.splice(i, 0, {x: datasets[more_ds].data[i].x, y: mid});
             found++;
+            break;
             if (found == Math.abs(misses)) {
               break;
             }
           }
         }
-      }
+      }*/
       return res;
     },
     shuffle(arr) {
@@ -179,11 +181,6 @@ export default {
             type: "time",
             position: "bottom",
             display: true,
-            time: {
-              displayFormats: {
-                hour: 'HH',
-              }
-            },
           },
           y: {
             type: "linear",
