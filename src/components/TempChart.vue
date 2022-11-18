@@ -106,18 +106,35 @@ export default {
       const res = {
         datasets: datasets,
       }
+      console.log(datasets)
       if (datasets[2].data.length != datasets[3].data.length) {
-        console.log('no);')
-        for (let i = 0; i < datasets[2].data.length; i++) {
+        const misses = datasets[2].data.length - datasets[3].data.length;
+        if (Math.abs(misses) > 100) {
+          return res;
+        }
+        var more_ds = 0;
+        var less_ds = 0;
+        if (misses > 0) {
+          more_ds = 2;
+          less_ds = 3;
+        }
+        else {
+          more_ds = 3;
+          less_ds = 2;
+        }
+        var found = 0;
+        for (let i = 0; i < datasets[more_ds].data.length; i++) {
           if (new Date(datasets[2].data[i].x).getMinutes() != new Date(datasets[3].data[i].x).getMinutes()) {
-            console.log('gap found at ' + i);
-            const mid = (datasets[3].data[i - 1].y + datasets[3].data[i + 1].y) / 2;
-            datasets[3].data.splice(i, 0, {x: datasets[2].data[i].x, y: mid});
-            break;
+            var mid = 0;
+            mid = (datasets[less_ds].data[i - 1].y + datasets[less_ds].data[i + 1].y) / 2;
+            datasets[less_ds].data.splice(i, 0, {x: datasets[more_ds].data[i].x, y: mid});
+            found++;
+            if (found == Math.abs(misses)) {
+              break;
+            }
           }
         }
       }
-      console.log(datasets)
       return res;
     },
     shuffle(arr) {
@@ -162,6 +179,11 @@ export default {
             type: "time",
             position: "bottom",
             display: true,
+            time: {
+              displayFormats: {
+                hour: 'HH',
+              }
+            },
           },
           y: {
             type: "linear",
