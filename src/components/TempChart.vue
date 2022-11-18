@@ -94,9 +94,8 @@ export default {
           backgroundColor: color,
           data: use_data,
           borderColor: color,
-          fill: false,
+          fill: true,
           cubicInterpolationMode: 'monotone',
-          skipNullValues: true
         });
         if (use_data.length > data_num) {
           data_num = use_data.length;
@@ -106,6 +105,9 @@ export default {
       const res = {
         datasets: datasets,
       }
+
+
+
       /*console.log(datasets)
       if (datasets[2].data.length != datasets[3].data.length) {
         const misses = datasets[2].data.length - datasets[3].data.length;
@@ -168,7 +170,7 @@ export default {
         maintainAspectRatio: false,
         pointRadius: 1,
         pointHoverRadius: 4,
-        spanGaps: true,
+        spanGaps: false,
         plugins: {
             legend: false,
         },
@@ -179,6 +181,12 @@ export default {
         scales: {
           x: {
             type: "time",
+            time: {
+              displayFormats: {
+                hour: 'HH:mm'
+              }
+            },
+            distribution: 'series',
             position: "bottom",
             display: true,
           },
