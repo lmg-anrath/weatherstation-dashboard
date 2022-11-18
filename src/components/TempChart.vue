@@ -96,6 +96,7 @@ export default {
           borderColor: color,
           fill: false,
           cubicInterpolationMode: 'monotone',
+          skipNullValues: true
         });
         if (use_data.length > data_num) {
           data_num = use_data.length;
@@ -105,6 +106,18 @@ export default {
       const res = {
         datasets: datasets,
       }
+      if (datasets[2].data.length != datasets[3].data.length) {
+        console.log('no);')
+        for (let i = 0; i < datasets[2].data.length; i++) {
+          if (new Date(datasets[2].data[i].x).getMinutes() != new Date(datasets[3].data[i].x).getMinutes()) {
+            console.log('gap found at ' + i);
+            const mid = (datasets[3].data[i - 1].y + datasets[3].data[i + 1].y) / 2;
+            datasets[3].data.splice(i, 0, {x: datasets[2].data[i].x, y: mid});
+            break;
+          }
+        }
+      }
+      console.log(datasets)
       return res;
     },
     shuffle(arr) {
@@ -136,6 +149,7 @@ export default {
         maintainAspectRatio: false,
         pointRadius: 1,
         pointHoverRadius: 4,
+        spanGaps: true,
         plugins: {
             legend: false,
         },
@@ -146,11 +160,6 @@ export default {
         scales: {
           x: {
             type: "time",
-            time: {
-              displayFormats: {
-                hour: 'HH',
-              }
-            },
             position: "bottom",
             display: true,
           },

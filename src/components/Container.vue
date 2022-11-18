@@ -114,7 +114,7 @@ export default {
   margin-top: 30px;
   transition: all 0.1s;
   background-color: rgb(242,243,224);
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 @media screen and (min-width: 775px) {
@@ -123,6 +123,7 @@ export default {
     height: 80vh;
     margin-left: calc(50vw - (80vw / 2));
     position: sticky;
+    border-radius: 15px;
   }
 }
 @media screen and (max-width: 775px) {
