@@ -36,7 +36,7 @@ const {
   CategoryScale,
   LinearScale,
   TimeScale,
-  TimeSeriesScale
+  TimeSeriesScale,
 } = ChartImport.default ? ChartImport.default : ChartImport;
 Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement, TimeScale, TimeSeriesScale);
 import 'chartjs-adapter-date-fns';
@@ -105,40 +105,6 @@ export default {
       const res = {
         datasets: datasets,
       }
-
-
-
-      /*console.log(datasets)
-      if (datasets[2].data.length != datasets[3].data.length) {
-        const misses = datasets[2].data.length - datasets[3].data.length;
-        console.log(misses)
-        if (Math.abs(misses) > 100) {
-          return res;
-        }
-        var more_ds = 0;
-        var less_ds = 0;
-        if (misses > 0) {
-          more_ds = 2;
-          less_ds = 3;
-        }
-        else {
-          more_ds = 3;
-          less_ds = 2;
-        }
-        var found = 0;
-        for (let i = 0; i < datasets[less_ds].data.length; i++) {
-          if (new Date(datasets[2].data[i].x).getMinutes() != new Date(datasets[3].data[i].x).getMinutes()) {
-            var mid = 0;
-            mid = (datasets[less_ds].data[i - 1].y + datasets[less_ds].data[i + 1].y) / 2;
-            datasets[less_ds].data.splice(i, 0, {x: datasets[more_ds].data[i].x, y: mid});
-            found++;
-            break;
-            if (found == Math.abs(misses)) {
-              break;
-            }
-          }
-        }
-      }*/
       return res;
     },
     shuffle(arr) {
@@ -168,14 +134,37 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
-        pointRadius: 1,
+        pointRadius: 0.01,
         pointHoverRadius: 4,
         spanGaps: false,
+        clip: false,
         plugins: {
-            legend: false,
+          legend: false,
+          tooltip: {
+            mode: 'x',
+            displayColors: true,
+            intersect: false,
+            filter: function (tooltipItem, currentIndex, tooltipItems) {
+              // On zoomed out graph, hovering mouse picks a lot of data for x-axis and displays them all in tooltip.
+              // This filter returns only first item from each dataSet from hover picked items passed
+              // to tooltip, so it can be correctly displayed in tooltip for different line charts(datasets)
+              return tooltipItems[currentIndex].datasetIndex !== tooltipItems[currentIndex - 1]?.datasetIndex
+            },
+            zoom: {
+              zoom: {
+                wheel: {
+                  enabled: true,
+                },
+                pinch: {
+                  enabled: true
+                },
+                mode: 'xy',
+              }
+            }
+          }
         },
         interaction: {
-          mode: 'index',
+          mode: 'x',
           intersect: false,
         },
         scales: {
@@ -250,6 +239,9 @@ export default {
     height: 350px;
     border-radius: 15px;
     margin-left: calc(50vw - (750px / 2));
+    backdrop-filter: blur(4.1px);
+    -webkit-backdrop-filter: blur(4.1px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
   @media screen and (max-width: 776px) {
     .main-chart-container {

@@ -3,6 +3,9 @@
     <div>
       <FilterPanel @range_clicked="change_range($event)" @clicked="change_visibility($event)" :inputs="keys" />
     </div>
+    <div id="bg" style="">
+      
+    </div>
     <div id="charts">
       <div v-for="(item, index) in use_data" :key="index">
         <div v-if="item != undefined">
@@ -106,6 +109,16 @@ export default {
   position: relative;
 }
 
+#charts {
+  z-index: 10;
+}
+
+#bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
 #x {
   overflow: hidden;
   height: 350px;
@@ -115,6 +128,7 @@ export default {
   transition: all 0.1s;
   background-color: rgb(242,243,224);
   border-radius: 15px;
+  
 }
 
 @media screen and (min-width: 775px) {

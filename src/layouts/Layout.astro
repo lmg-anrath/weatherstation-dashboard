@@ -13,13 +13,18 @@ const { title } = Astro.props as Props;
   </head>
   <body>
     <slot/>
+    <!-- 100% privacy friendly analytics -->
+    <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
   </body>
 </html>
 
 <style>
   body,html {
-    /*background-color: rgb(38, 38, 54);*/
-    background-color: rgb(22, 27, 42);
+    /*background-color: rgb(38, 38, 54);
+    background-color: rgb(22, 27, 42);*/
+    background: rgb(22,27,42);
+    background: radial-gradient(circle, rgba(22,27,42,1) 60%, rgb(3, 39, 37) 90%);
     padding: 0;
     margin: 0;
     color: #fff;
@@ -30,8 +35,7 @@ const { title } = Astro.props as Props;
   height: 5px;
   }
   *::-webkit-scrollbar-track {
-  background-color: rgba(165, 165, 165, 0);
-  border-radius: 10px;
+  background: rgba(22,27,42,1);
   }
   *::-webkit-scrollbar-thumb {
   background-color: #474747;

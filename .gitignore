@@ -1,6 +1,7 @@
 # build output
 dist/
 .output/
+public/tmp.svg
 
 # dependencies
 node_modules/
