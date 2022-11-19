@@ -234,7 +234,7 @@ export default {
     margin: 0;
   }
   .main-chart-container {
-    background-color: rgba(91, 95, 96, 0.25);
+    background-color: rgba(91, 95, 96, 0.1);
     width: 750px;
     height: 350px;
     border-radius: 15px;
