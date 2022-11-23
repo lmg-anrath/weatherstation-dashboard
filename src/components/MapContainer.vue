@@ -209,7 +209,7 @@
   pointer-events: none;
 }
 
-@media screen and (min-width: 775px) {
+@media screen and (min-width: 1120px) {
   #map:hover {
     height: 80vh;
   }
@@ -218,7 +218,7 @@
   }
 }
 
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 1120px) {
   #overlay {
     --w: 220px;
     --h: 170px;

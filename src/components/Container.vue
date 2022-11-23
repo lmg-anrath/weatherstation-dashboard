@@ -1,10 +1,9 @@
 <template>
   <div id="main">
     <div>
-      <FilterPanel @range_clicked="change_range($event)" @clicked="change_visibility($event)" :inputs="keys" />
+      <FilterPanel @date_range="change_range($event, 'true')" @range_clicked="change_range($event)" @clicked="change_visibility($event)" :inputs="keys" />
     </div>
     <div id="bg" style="">
-      
     </div>
     <div id="charts">
       <div v-for="(item, index) in use_data" :key="index">
@@ -52,8 +51,8 @@ export default {
       const element = document.getElementById(id);
       element.hidden = !element.hidden;
     },
-    async change_range(e) {
-      if (VueCookie.get(`data_${e}`) == 'true') {
+    async change_range(e, date_range=null) {
+      if (VueCookie.get(`data_${e}`) == 'true' && !date_range) {
         const c_data = JSON.parse(localStorage.getItem(`data_${e}`));
         if (c_data) {
           this.use_data = c_data;
@@ -77,20 +76,42 @@ export default {
       const pres_chart = { type: 'air_pressure', station_data: [] };
       const part_25_chart = { type: 'air_particle_pm25', station_data: [] };
       const part_10_chart = { type: 'air_particle_pm10', station_data: [] };
-      for (let i = 1; i <= station_keys.length; i++) {
-        try {
-          const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&d=${e}`)).json();
-          temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature, color: station_keys[i-1].color });
-          humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity, color: station_keys[i-1].color });
-          pres_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_pressure, color: station_keys[i-1].color });
-          part_25_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm25, color: station_keys[i-1].color });
-          part_10_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm10, color: station_keys[i-1].color });
-        } catch (err) {
-          error.error = true;
-          error.error_string = err;
+
+      if (!date_range) {
+        for (let i = 1; i <= station_keys.length; i++) {
+          try {
+            const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&d=${e}`)).json();
+            temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature, color: station_keys[i-1].color });
+            humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity, color: station_keys[i-1].color });
+            pres_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_pressure, color: station_keys[i-1].color });
+            part_25_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm25, color: station_keys[i-1].color });
+            part_10_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm10, color: station_keys[i-1].color });
+          } catch (err) {
+            error.error = true;
+            error.error_string = err;
+          }
+        }
+      } else {
+        for (let i = 1; i <= station_keys.length; i++) {
+          try {
+            console.log(`https://api.wetterstation-lmg.de/get?id=${i}&min=${e.min}&max=${e.max}`)
+            const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&min=${e.min}&max=${e.max}`)).json();
+            temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature, color: station_keys[i-1].color });
+            humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity, color: station_keys[i-1].color });
+            pres_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_pressure, color: station_keys[i-1].color });
+            part_25_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm25, color: station_keys[i-1].color });
+            part_10_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm10, color: station_keys[i-1].color });
+          } catch (err) {
+            error.error = true;
+            error.error_string = err;
+          }
         }
       }
       this.use_data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];
+      if (!date_range) {
+        this.show_map = true;
+        return;
+      };
       const save = JSON.stringify(this.use_data);
       localStorage.setItem(`data_${e}`, save)
       var now = new Date();
@@ -115,7 +136,7 @@ export default {
 
 #bg {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
 }
 
@@ -131,7 +152,7 @@ export default {
   
 }
 
-@media screen and (min-width: 775px) {
+@media screen and (min-width: 1120px) {
   #x:hover {
     width: 80vw;
     height: 80vh;
@@ -140,7 +161,7 @@ export default {
     border-radius: 15px;
   }
 }
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 1120px) {
     #x {
       width: 100%;
       height: 100vw;

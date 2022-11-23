@@ -17,20 +17,6 @@
         <a target="_blank" rel="noopener noreferrer" class="src src-ddown" :href="item[0]">{{ item[1] }}</a>
       </div>
     </div>
-    <!--<div id="hide-show-ctrl">
-      <div id="data" v-for="(item, index) in inputs" :key="index">
-        <div class="check">
-          <input v-on:change="check($event)" :item_id="item[0]" type="checkbox" checked="true">{{item[1]}}
-        </div>
-      </div>
-    </div>-->
-    <!--<div id="station-ctrl">
-      <div id="data" v-for="(item, index) in inputs" :key="index">
-        <div class="check">
-          <input v-on:change="check($event)" :item_id="item[0]" type="checkbox" checked="true">{{item[1]}}
-        </div>
-      </div>
-    </div>-->
     <div id="buttons">
       <div id="buttons-container">
         <div class="time-btn-container">
@@ -47,6 +33,18 @@
         </div>
       </div>
     </div>
+    <!--<div id="scale">
+      <div id="scale-inner">
+        <div id="from">
+          <a class="fromtohead">VON</a>
+          <input id="from-date" @change="date_change($event)" class="input-time" type="datetime-local">
+        </div>
+        <div id="to">
+          <a class="fromtohead">BIS</a>
+          <input id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
+        </div>
+      </div>
+    </div>-->
   </div>
 </template>
 
@@ -86,23 +84,55 @@ export default {
         ddown.style.opacity = '1';
       }
       e.srcElement.style.height = '100px'
+    },
+    date_change(e) {
+      const all = document.getElementsByClassName('input-time');
+      for (let i = 0; i < all.length; i++) {
+        if (!all[i].value) {
+          console.log(`${i} not filled out yet...`)
+          return;
+        }
+      }
+      //const from_clock = document.getElementById('from-clock');
+      const from_time = new Date(document.getElementById('from-date').value)//.setHours(from_clock.valueAsDate.getHours() - 3, from_clock.valueAsDate.getMinutes()));
+      from_time.setHours(from_time.getHours() - 3);
+      //const to_clock = document.getElementById('to-clock');
+      const to_time = new Date(document.getElementById('to-date').value)//.setHours(to_clock.valueAsDate.getHours() - 3, to_clock.valueAsDate.getMinutes()));
+      to_time.setHours(from_time.getHours() - 3);
+      console.log(to_time)
+
+      if (from_time > to_time) {
+        alert('VON muss vor BIS liegen!');
+        return;
+      }
+
+      this.$emit('date_range', {
+        min: from_time.toISOString(),
+        max: to_time.toISOString()
+      });
     }
   }
 }
 </script>
 
 <style>
-  @media screen and (min-width: 775px) {
+  @media screen and (min-width: 1120px) {
     #ddown {
       display: none;
     }
     #links-ddown-c {
       display: none;
     }
+    #panel {
+      height: 100px !important;
+    }
   }
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 1120px) {
     .links {
       display: none;
+    }
+    #scale {
+      display: none !important;
     }
     #buttons {
       display: none !important;
@@ -216,5 +246,42 @@ export default {
     max-height: 145px;
     width: 150px;
     padding-top: 18px;
+  }
+  #scale {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100px;
+    width: 300px;
+    padding-left: 30px;
+  }
+  #from {
+    height: 100px;
+    width: 140px;
+    float: left;
+  }
+  #to {
+    padding-left: 20px;
+    height: 100px;
+    width: 140px;
+    float: right;
+  }
+  .input-time {
+    width: 140px;
+    background-color: transparent;
+    color: black;
+    border: 0;
+    filter: invert(1);
+  }
+  .input-time:focus {
+    border: 0;
+  }
+  #scale-inner {
+    height: 60px;
+    padding-top: 20px;
+  }
+  .fromtohead {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 </style>

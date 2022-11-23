@@ -48,7 +48,7 @@ h2 {
   font-size: 22px;
 }
 
-@media screen and (max-width: 775px) {
+@media screen and (max-width: 1120px) {
   #overlay {
     font-size: 12px;
   }

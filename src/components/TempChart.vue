@@ -83,6 +83,7 @@ export default {
           labels.push(data[i].data[x].x + 'y');
           var date = new Date(data[i].data[x].x);
           date.setSeconds(0,0);
+          date.setHours(date.getHours() - 2);
           use_data[x] = {
             "x": date,
             "y": data[i].data[x].y,
@@ -105,6 +106,31 @@ export default {
       const res = {
         datasets: datasets,
       }
+
+      // set labels
+      if (this.data.length > 0) {
+        var most = -1;
+        for (let i = 0; i < this.data.length; i++) {
+          if (this.data[i].data.length > most) {
+            most = i;
+          }
+        }
+        if (most == 0) {
+          this.hours_given = 0;
+          return res;
+        }
+        var first = new Date(this.data[most].data[0].x);
+        console.log(first)
+        var last = new Date(this.data[most].data[this.data[most].data.length - 1].x);
+        var hours = Math.abs(first - last) / 36e5;
+        this.hours_given = hours;
+      }
+      if (this.hours_given > 24) {
+        this.chartOptions.scales.x.time.displayFormats.hour = 'MMM dd';
+      } else {
+        this.chartOptions.scales.x.time.displayFormats.hour = 'HH:mm';
+      }
+
       return res;
     },
     shuffle(arr) {
@@ -131,6 +157,7 @@ export default {
   },
   data() {
     return {
+      hours_given: 0,
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
@@ -145,9 +172,6 @@ export default {
             displayColors: true,
             intersect: false,
             filter: function (tooltipItem, currentIndex, tooltipItems) {
-              // On zoomed out graph, hovering mouse picks a lot of data for x-axis and displays them all in tooltip.
-              // This filter returns only first item from each dataSet from hover picked items passed
-              // to tooltip, so it can be correctly displayed in tooltip for different line charts(datasets)
               return tooltipItems[currentIndex].datasetIndex !== tooltipItems[currentIndex - 1]?.datasetIndex
             },
             zoom: {
@@ -172,7 +196,8 @@ export default {
             type: "time",
             time: {
               displayFormats: {
-                hour: 'HH:mm'
+                'hour': 'HH:mm',
+                'week': 'MMM dd',
               }
             },
             distribution: 'series',
@@ -195,7 +220,7 @@ export default {
       chart_id: '',
       hidden: false,
       max_num: 0,
-      last_data: {}
+      last_data: {},
     }
   },
   watch: {

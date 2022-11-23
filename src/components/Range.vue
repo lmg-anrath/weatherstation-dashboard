@@ -58,7 +58,7 @@ export default {
   button:hover {
     color: gray;
   }
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 1120px) {
     .container {
       width: 100vw;
     }
