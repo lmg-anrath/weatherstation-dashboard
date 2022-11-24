@@ -93,7 +93,6 @@ export default {
       } else {
         for (let i = 1; i <= station_keys.length; i++) {
           try {
-            console.log(`https://api.wetterstation-lmg.de/get?id=${i}&min=${e.min}&max=${e.max}`)
             const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&min=${e.min}&max=${e.max}`)).json();
             temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature, color: station_keys[i-1].color });
             humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity, color: station_keys[i-1].color });

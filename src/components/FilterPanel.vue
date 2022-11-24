@@ -1,7 +1,7 @@
 <template>
   <div id="panel">
     <div id="logo-container">
-      <img id="logo" src="/lmg.png" alt="logo">
+      <img height="55" width="87" id="logo" src="/lmg.png" alt="logo">
     </div>
     
     <div id="ddown">
@@ -20,30 +20,29 @@
     <div id="buttons">
       <div id="buttons-container">
         <div class="time-btn-container">
-        <button title="Setze den anzuzeigenden Zeitraum auf 1 Tag (24h)" @click="range_click($event)" class="time-btn" val="day">TAG</button>
+          <button title="Setze den anzuzeigenden Zeitraum auf 1 Tag (24h)" @click="range_click($event)" class="time-btn" val="day">TAG</button>
         </div>
         <div class="time-btn-container">
-        <button title="Setze den anzuzeigenden Zeitraum auf 1 Woche" @click="range_click($event)" class="time-btn" val="week">WOCHE</button>
+          <button title="Setze den anzuzeigenden Zeitraum auf 1 Woche" @click="range_click($event)" class="time-btn" val="week">WOCHE</button>
         </div>
         <div class="time-btn-container">
-        <button title="Setze den anzuzeigenden Zeitraum auf 1 Monat" @click="range_click($event)" class="time-btn" val="month">MONAT</button>
+          <button title="Setze den anzuzeigenden Zeitraum auf 1 Monat" @click="range_click($event)" class="time-btn" val="month">MONAT</button>
         </div>
         <div class="time-btn-container">
-        <button title="Setze den anzuzeigenden Zeitraum auf 1 Jahr" @click="range_click($event)" class="time-btn" val="year">JAHR</button>
+          <button title="Setze den anzuzeigenden Zeitraum auf 1 Jahr" @click="range_click($event)" class="time-btn" val="year">JAHR</button>
         </div>
       </div>
     </div>
     <div id="scale">
       <div id="scale-inner">
         <div id="from">
-          <a class="fromtohead">VON</a>
-          <input id="from-date" @change="date_change($event)" class="input-time" type="datetime-local">
+          <div class="fromtohead">VON</div>
+          <input aria-label="b" id="from-date" @change="date_change($event)" class="input-time" type="datetime-local">
         </div>
-        <div id="line">
-        </div>
+        <div id="line"></div>
         <div id="to">
-          <a class="fromtohead">BIS</a>
-          <input id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
+          <div class="fromtohead">BIS</div>
+          <input aria-label="a" id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
         </div>
       </div>
     </div>
@@ -88,7 +87,6 @@ export default {
       const all = document.getElementsByClassName('input-time');
       for (let i = 0; i < all.length; i++) {
         if (!all[i].value) {
-          console.log(`${i} not filled out yet...`)
           return;
         }
       }
@@ -104,10 +102,6 @@ export default {
         alert('Das Startdatum muss vor dem Enddatum liegen!');
         return;
       }
-      console.log({
-        min: from_time.toISOString(),
-        max: to_time.toISOString()
-      })
       this.$emit('date_range', {
         min: from_time.toISOString(),
         max: to_time.toISOString()

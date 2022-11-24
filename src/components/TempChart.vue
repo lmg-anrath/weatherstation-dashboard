@@ -1,8 +1,8 @@
 <template>
   <div class="main-chart-container">
-    <p class="heading">
-      <a class="heading-link">{{heading}}</a>
-    </p>
+    <div class="heading">
+      <div class="heading-link">{{heading}}</div>
+    </div>
     <div class="chart-container">
       <Line
         :chart-options="chartOptions"
@@ -213,6 +213,7 @@ export default {
     font-size: 26px;
     font-weight: 600;
     padding-top: 30px;
+    margin-top: 23px;
     margin-bottom: 15px;
   }
   .heading-link {
