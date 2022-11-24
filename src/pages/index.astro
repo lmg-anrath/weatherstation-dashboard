@@ -2,57 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Seo from '../components/Seo.vue';
 import Container from '../components/Container.vue';
-
-/*var error = {
-	error: false,
-	error_string: ''
-};
-
-interface station_data {
-	station: string,
-	data: Object
-}
-interface chart {
-	type: string,
-	station_data: Array<station_data> | undefined
-}
-
-var station_keys;
-
-try {
-	station_keys = await (await fetch('https://api.wetterstation-lmg.de/stations')).json();
-} catch (err: Error) {
-	console.log('Err')
-	error.error = true;
-	error.error_string = err;
-}
-
-const temp_chart: chart = { type: 'temperature', station_data: [] };
-const humi_chart: chart = { type: 'humidity', station_data: [] };
-const pres_chart: chart = { type: 'air_pressure', station_data: [] };
-const part_25_chart: chart = { type: 'air_particle_pm25', station_data: [] };
-const part_10_chart: chart = { type: 'air_particle_pm10', station_data: [] };
-for (let i = 1; i <= station_keys.length; i++) {
-	try {
-		const res = await (await fetch(`https://api.wetterstation-lmg.de/get?id=${i}&d=day`)).json();
-		temp_chart.station_data?.push({ station: station_keys[i-1].name, data: res.temperature });
-		humi_chart.station_data?.push({ station: station_keys[i-1].name, data: res.humidity });
-		pres_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_pressure });
-		part_25_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm25 });
-		part_10_chart.station_data?.push({ station: station_keys[i-1].name, data: res.air_particle_pm10 });
-	} catch (err: Error) {
-		console.log('Err')
-		error.error = true;
-		error.error_string = err;
-	}
-}
-const data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];*/
-//{error.error ? <p>Error while loading data from api...</p> : }
 const data = {};
 const key = import.meta.env.OPENWEATHERMAP_TOKEN;
-console.log(key);
-// get github environment variables
-
 ---
 
 <Seo></Seo>

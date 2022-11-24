@@ -33,26 +33,25 @@
         </div>
       </div>
     </div>
-    <!--<div id="scale">
+    <div id="scale">
       <div id="scale-inner">
         <div id="from">
           <a class="fromtohead">VON</a>
           <input id="from-date" @change="date_change($event)" class="input-time" type="datetime-local">
+        </div>
+        <div id="line">
         </div>
         <div id="to">
           <a class="fromtohead">BIS</a>
           <input id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
         </div>
       </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
 <script lang="js">
 export default {
-  props: {
-    inputs: Array
-  },
   data() {
     return {
       links: [
@@ -93,19 +92,22 @@ export default {
           return;
         }
       }
-      //const from_clock = document.getElementById('from-clock');
-      const from_time = new Date(document.getElementById('from-date').value)//.setHours(from_clock.valueAsDate.getHours() - 3, from_clock.valueAsDate.getMinutes()));
-      from_time.setHours(from_time.getHours() - 3);
-      //const to_clock = document.getElementById('to-clock');
-      const to_time = new Date(document.getElementById('to-date').value)//.setHours(to_clock.valueAsDate.getHours() - 3, to_clock.valueAsDate.getMinutes()));
-      to_time.setHours(from_time.getHours() - 3);
-      console.log(to_time)
-
+      const from = document.getElementById('from-date');
+      const to = document.getElementById('to-date');
+      const from_time = new Date(from.value);
+      from_time.setSeconds(15);
+      const to_time = new Date(to.value);
+      to_time.setSeconds(15);
+      to.value = '';
+      from.value = '';
       if (from_time > to_time) {
-        alert('VON muss vor BIS liegen!');
+        alert('Das Startdatum muss vor dem Enddatum liegen!');
         return;
       }
-
+      console.log({
+        min: from_time.toISOString(),
+        max: to_time.toISOString()
+      })
       this.$emit('date_range', {
         min: from_time.toISOString(),
         max: to_time.toISOString()
@@ -186,7 +188,6 @@ export default {
     padding: 0;
     margin: 0;
     height: 100px;
-    /*background-color: #1B263B;*/
     background: transparent;
     border-radius: 0 0 10px 10px;
     transition: height 0.2s;
@@ -251,19 +252,30 @@ export default {
     display: inline-block;
     vertical-align: middle;
     height: 100px;
-    width: 300px;
-    padding-left: 30px;
+    width: 320px;
+    padding-left: 20px;
   }
   #from {
+    padding: 12px 0 0px 10px;
     height: 100px;
     width: 140px;
     float: left;
   }
   #to {
     padding-left: 20px;
+    padding: 12px 10px 0px 0px;
     height: 100px;
     width: 140px;
     float: right;
+  }
+  #line {
+    height: 50px;
+    width: 2px;
+    border-radius: 1px;
+    background-color: rgba(255, 255, 255, 0.313);
+    position: absolute;
+    margin-left: 157px;
+    margin-top: 8px;
   }
   .input-time {
     width: 140px;
@@ -271,17 +283,31 @@ export default {
     color: black;
     border: 0;
     filter: invert(1);
+    font-size: 18px;
+    text-overflow: ellipsis;
   }
   .input-time:focus {
     border: 0;
   }
   #scale-inner {
-    height: 60px;
-    padding-top: 20px;
+    height: 66px;
+    border-radius: 10px;
+    margin-top: 18px;
+    background-color: rgba(126, 134, 167, 0.2);
   }
   .fromtohead {
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 2px;
+  }
+  button {
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    color: white;
+    transition: color 0.2s;
+  }
+  button:hover {
+    color: gray;
   }
 </style>

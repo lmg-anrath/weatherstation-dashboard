@@ -24,36 +24,35 @@ export default {
 </script>
 
 <style scoped>
-
-#overlay {
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(7.2px);
-  -webkit-backdrop-filter: blur(7.2px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 30px;
-  text-align: center;
-}
-#content {
-  padding: 20px;
-  font-size: 20px;
-}
-a,p {
-  text-shadow: 0px 0px 6px #000000;;
-}
-h2 {
-  padding: 0;
-  margin-top: 0px;
-  text-decoration: underline;
-  font-size: 22px;
-}
-
-@media screen and (max-width: 1120px) {
   #overlay {
-    font-size: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.2px);
+    -webkit-backdrop-filter: blur(7.2px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    text-align: center;
   }
   #content {
-    font-size: 14px;
+    padding: 20px;
+    font-size: 20px;
   }
-}
+  a,p {
+    text-shadow: 0px 0px 6px #000000;;
+  }
+  h2 {
+    padding: 0;
+    margin-top: 0px;
+    text-decoration: underline;
+    font-size: 22px;
+  }
+
+  @media screen and (max-width: 1120px) {
+    #overlay {
+      font-size: 12px;
+    }
+    #content {
+      font-size: 14px;
+    }
+  }
 </style>

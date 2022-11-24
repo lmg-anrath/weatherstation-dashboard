@@ -1,7 +1,6 @@
 <template>
   <div id="container">
     <MapOverlay v-if="over" id="overlay" :data="data" :name="name" />
-    <!--<div v-if="over" id="overlay"></div>-->
     <div id="map" ref="map-root">
     </div>
   </div>
@@ -16,7 +15,6 @@
   import Point from 'ol/geom/Point'
   import Style from 'ol/style/Style'
   import Icon from 'ol/style/Icon'
-  import {getVectorContext} from 'ol/render';
   import 'ol/ol.css'
   import { fromLonLat } from 'ol/proj'
   import SourceVector from 'ol/source/Vector'
@@ -182,61 +180,59 @@
 </script>
 
 <style>
-#container {
-  position: relative;
-}
-
-#map {
-  position: absolute;
-  width: 100%;
-  height: 60vw;
-  border-radius: 15px;
-  overflow: hidden;
-  transition: all 0.1s;
-}
-
-#overlay {
-  --w: 333px;
-  --h: 200px;
-  height: var(--h);
-  width: var(--w);
-  z-index: 10;
-  top: 0;
-  left: 0;
-  position: absolute;
-  margin-left: calc(100vw - (50vw + var(--w) / 2) - 10vw);
-  margin-top: calc(90vh - (50vh + var(--h) / 2)); 
-  pointer-events: none;
-}
-
-@media screen and (min-width: 1120px) {
-  #map:hover {
-    height: 80vh;
+  #container {
+    position: relative;
   }
+
   #map {
-    height: 350px;
+    position: absolute;
+    width: 100%;
+    height: 60vw;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.1s;
   }
-}
 
-@media screen and (max-width: 1120px) {
   #overlay {
-    --w: 220px;
-    --h: 170px;
+    --w: 333px;
+    --h: 200px;
     height: var(--h);
     width: var(--w);
     z-index: 10;
     top: 0;
     left: 0;
     position: absolute;
-    margin-left: calc(100% - (50% + var(--w) / 2));
-    margin-top: calc(50vw - var(--h) / 2); 
+    margin-left: calc(100vw - (50vw + var(--w) / 2) - 10vw);
+    margin-top: calc(90vh - (50vh + var(--h) / 2)); 
     pointer-events: none;
-    font-size: 14px;
   }
-  #map {
-    height: 100vw;
+
+  @media screen and (min-width: 1120px) {
+    #map:hover {
+      height: 80vh;
+    }
+    #map {
+      height: 350px;
+    }
   }
-}
 
-
+  @media screen and (max-width: 1120px) {
+    #overlay {
+      --w: 220px;
+      --h: 170px;
+      height: var(--h);
+      width: var(--w);
+      z-index: 10;
+      top: 0;
+      left: 0;
+      position: absolute;
+      margin-left: calc(100% - (50% + var(--w) / 2));
+      margin-top: calc(50vw - var(--h) / 2); 
+      pointer-events: none;
+      font-size: 14px;
+    }
+    #map {
+      height: 100vw;
+    }
+  }
 </style>

@@ -1,9 +1,8 @@
 <template>
   <div class="main-chart-container">
     <p class="heading">
-      <a class="heading-link" href="/">{{heading}}</a>
+      <a class="heading-link">{{heading}}</a>
     </p>
-    <!--<Range @rangechange="update_range($event)" :label_name="heading" :max="max_num"/>-->
     <div class="chart-container">
       <Line
         :chart-options="chartOptions"
@@ -18,13 +17,8 @@
 </template>
 
 <script>
-
-import { Bar, Line } from 'vue-chartjs'
-//import Chart from 'chart.js/auto';
-
+import { Bar, Line } from 'vue-chartjs';
 import * as ChartImport from 'chart.js';
-//import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.mjs';
-import Range from './Range.vue';
 const {
   Chart,
   Title,
@@ -42,7 +36,7 @@ Chart.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, P
 import 'chartjs-adapter-date-fns';
 
 export default {
-  components: { Line, Range, Bar },
+  components: { Line, Bar },
   props: {
     width: {
       type: Number,
@@ -58,11 +52,7 @@ export default {
     },
     styles: {
       type: Object,
-      default: () => {
-        return {
-          position: 'relative',
-        }
-      }
+      default: () => {return {position: 'relative'}}
     },
     data: { type: Object },
     chart_type: { type: String }
@@ -72,18 +62,22 @@ export default {
       var data_num = 0;
       var data = this.$props.data;
       const name = this.$props.chart_type;
-      this.heading = (name == 'temperature') ? 'Temperatur': ((name == 'humidity') ? 'Luftfeuchtigkeit' : ((name == 'air_pressure') ? 'Luftdruck' : ((name == 'air_particle_pm25') ? 'Partikel (2.5)' : 'Partikel (10)')));
-      var labels = [];
+      const map = {
+        'temperature': 'Temperatur',
+        'humidity': 'Luftfeuchtigkeit',
+        'air_pressure': 'Luftdruck',
+        'air_particle_pm25': 'Partikel (2.5)',
+        'air_particle_pm10': 'Partikel (10)'
+      }
+      this.heading = map[name];
       var datasets = [];
-      
       for (let i = 0; i < data.length; i++) {
         const color = `rgb(${data[i].color})`;
         var use_data = [];
         for (let x = 0; x < data[i].data.length; x++) {
-          labels.push(data[i].data[x].x + 'y');
           var date = new Date(data[i].data[x].x);
           date.setSeconds(0,0);
-          date.setHours(date.getHours() - 2);
+          date.setHours(date.getHours());
           use_data[x] = {
             "x": date,
             "y": data[i].data[x].y,
@@ -102,12 +96,9 @@ export default {
           data_num = use_data.length;
         }
       }
-      this.max_num = parseInt(data_num / 4);
       const res = {
         datasets: datasets,
       }
-
-      // set labels
       if (this.data.length > 0) {
         var most = -1;
         for (let i = 0; i < this.data.length; i++) {
@@ -120,7 +111,6 @@ export default {
           return res;
         }
         var first = new Date(this.data[most].data[0].x);
-        console.log(first)
         var last = new Date(this.data[most].data[this.data[most].data.length - 1].x);
         var hours = Math.abs(first - last) / 36e5;
         this.hours_given = hours;
@@ -130,30 +120,11 @@ export default {
       } else {
         this.chartOptions.scales.x.time.displayFormats.hour = 'HH:mm';
       }
-
       return res;
     },
-    shuffle(arr) {
-      var res_arr = arr;
-      for (let i = 0; i < res_arr.length; i++) {
-        res_arr[i] += Math.floor(Math.random() * (10 + 10 + 1) - 10)
-      }
-      return res_arr;
-    },
-    update_range(e) {
-      this.chart_data = this.get_data(parseInt(e));
-    },
-    toggle_vis(e) {
-      if (this.hidden) {
-        this.hidden = false;
-      } else {
-        this.hidden = true;
-      }
-    }
   },
   mounted() {
     this.chart_data = this.get_data(this.data.length);
-    this.chart_id = this.$props.chart_type;
   },
   data() {
     return {
@@ -217,10 +188,6 @@ export default {
       },
       heading: ' ',
       chart_data: {},
-      chart_id: '',
-      hidden: false,
-      max_num: 0,
-      last_data: {},
     }
   },
   watch: {

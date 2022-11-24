@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div>
-      <FilterPanel @date_range="change_range($event, 'true')" @range_clicked="change_range($event)" @clicked="change_visibility($event)" :inputs="keys" />
+      <FilterPanel @date_range="change_range($event, 'true')" @range_clicked="change_range($event)" @clicked="change_visibility($event)" />
     </div>
     <div id="bg" style="">
     </div>
@@ -32,8 +32,7 @@ export default {
   },
   props: {
     data: Object,
-    keyy: String,
-    keys: Array
+    keyy: String
   },
   data() {
     return {
@@ -108,7 +107,7 @@ export default {
         }
       }
       this.use_data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];
-      if (!date_range) {
+      if (date_range) {
         this.show_map = true;
         return;
       };
@@ -125,43 +124,38 @@ export default {
 </script>
 
 <style>
-#main {
-  padding-bottom: 50px;
-  position: relative;
-}
-
-#charts {
-  z-index: 10;
-}
-
-#bg {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-}
-
-#x {
-  overflow: hidden;
-  height: 350px;
-  width: 750px;
-  margin-left: calc(50vw - (750px / 2));
-  margin-top: 30px;
-  transition: all 0.1s;
-  background-color: rgb(242,243,224);
-  border-radius: 15px;
-  
-}
-
-@media screen and (min-width: 1120px) {
-  #x:hover {
-    width: 80vw;
-    height: 80vh;
-    margin-left: calc(50vw - (80vw / 2));
-    position: sticky;
+  #main {
+    padding-bottom: 50px;
+    position: relative;
+  }
+  #charts {
+    z-index: 10;
+  }
+  #bg {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+  }
+  #x {
+    overflow: hidden;
+    height: 350px;
+    width: 750px;
+    margin-left: calc(50vw - (750px / 2));
+    margin-top: 30px;
+    transition: all 0.1s;
+    background-color: rgb(242,243,224);
     border-radius: 15px;
   }
-}
-@media screen and (max-width: 1120px) {
+  @media screen and (min-width: 1120px) {
+    #x:hover {
+      width: 80vw;
+      height: 80vh;
+      margin-left: calc(50vw - (80vw / 2));
+      position: sticky;
+      border-radius: 15px;
+    }
+  }
+  @media screen and (max-width: 1120px) {
     #x {
       width: 100%;
       height: 100vw;
