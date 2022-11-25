@@ -2,7 +2,7 @@
   <div id="overlay">
     <div id="content">
       <h2>{{name}}</h2>
-      <div>Temperatur: {{(data.temp != -999) ? data.temp : '---'}} °C</div>
+      <div id="first-line">Temperatur: {{(data.temp != -999) ? data.temp : '---'}} °C</div>
       <p>Luftfeuchtigkeit: {{(data.humidity != -999) ? data.humidity : '---'}}%</p>
       <p>Luftdruck: {{(data.pressure != -999) ? data.pressure : '---'}} hPa</p>
     </div>
@@ -37,7 +37,7 @@ export default {
     padding: 20px;
     font-size: 20px;
   }
-  a,p {
+  #first-line,p {
     text-shadow: 0px 0px 6px #000000;;
   }
   h2 {

@@ -3,7 +3,6 @@
     <div id="logo-container">
       <img height="55" width="87" id="logo" src="/lmg.png" alt="logo">
     </div>
-    
     <div id="ddown">
       <svg @click="ddown_click($event)" id="icon" xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path id="menu-svg" d="M3 12, L21 12, M3 6, L21 6, M3 18, L21 18" />
