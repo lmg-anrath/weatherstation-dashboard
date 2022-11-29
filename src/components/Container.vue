@@ -16,6 +16,15 @@
       <MapContainer :keyi="keyy" :current_data="use_data" />
     </div>
   </div>
+  <div id="footer">
+    <div id="oweather">
+      <p>
+        Weather data provided by OpenWeather (Wind data)<br>
+        <a href="https://openweathermap.org/">(https://openweathermap.org/)</a>
+      </p>
+      <img height="50" width="80" id="ow-img" src="OpenWeather-Master-Logo RGB.png" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -122,7 +131,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #main {
     padding-bottom: 50px;
     position: relative;
@@ -165,5 +174,24 @@ export default {
       padding-bottom: 0px;
       position: relative;
     }
+    #footer {
+      background-color: transparent !important;
+      backdrop-filter: blur(0px);
+    }
+  }
+  #footer {
+    height: 110px;
+    background-color: rgba(60, 60, 60, 0.3);
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    backdrop-filter: blur(100px);
+  }
+  #oweather {
+    padding-top: 10px;
+    font-size: 10px;
+    color: rgb(118, 118, 118);
+  }
+  a {
+    color: rgb(164, 164, 164);
   }
 </style>

@@ -43,13 +43,27 @@
           <div class="fromtohead">BIS</div>
           <input aria-label="a" id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
         </div>
+        <!--<div id="from">
+          <div class="fromtohead">VON</div>
+          <DatePicker :display="true"></DatePicker>
+        </div>
+        <div id="line"></div>
+        <div id="to">
+          <div class="fromtohead">BIS</div>
+          <DatePicker></DatePicker>
+        </div>-->
       </div>
     </div>
   </div>
 </template>
 
 <script lang="js">
+import DatePicker from '../components/DatePicker.vue';
+
 export default {
+  components: {
+    DatePicker,
+  },
   data() {
     return {
       links: [
@@ -220,6 +234,9 @@ export default {
     height: 100px;
     width: 145px;
     
+  }
+  button {
+    cursor:pointer;
   }
   .time-btn-container {
     background-color: rgba(126, 134, 167, 0.2);
