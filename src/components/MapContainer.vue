@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <Wind :api_key="keyi" />
     <MapOverlay v-if="over" id="overlay" :data="data" :name="name" />
     <div id="map" ref="map-root">
     </div>
@@ -20,11 +21,13 @@
   import SourceVector from 'ol/source/Vector'
   import Feature from 'ol/Feature'
   import MapOverlay from '../components/MapOverlay.vue';
+  import Wind from './Wind.vue'
 
   export default {
     name: 'MapContainer',
     components: {
-      MapOverlay
+      MapOverlay,
+      Wind
     },
     props: {
       current_data: { type: Object },
@@ -532,6 +535,7 @@
 <style>
   #container {
     position: relative;
+    display: flex;
   }
 
   #map {
