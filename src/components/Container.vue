@@ -22,7 +22,7 @@
         Weather data provided by OpenWeather (Wind data)<br>
         <a href="https://openweathermap.org/">(https://openweathermap.org/)</a>
       </p>
-      <img height="50" width="80" id="ow-img" src="OpenWeather-Master-Logo RGB.png" />
+      <img height="50" width="80" id="ow-img" src="/OpenWeather-Master-LogoRGB.png" />
     </div>
   </div>
 </template>
