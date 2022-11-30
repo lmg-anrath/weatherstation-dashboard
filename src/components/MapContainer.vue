@@ -43,7 +43,7 @@
     async mounted() {
       const station_keys = await (await fetch('https://api.wetterstation-lmg.de/stations')).json();
       const points = {
-        "Stations":[
+        "Stations":[/*
           {
             "lat":"51.2503512",
             "long":"6.6907173",
@@ -73,7 +73,7 @@
             "lat":"51.36421",
             "long":"6.41950",
             "name":"Kempen"
-          },
+          },*/
         ]
       }
       const markers = new Vector({
@@ -97,7 +97,8 @@
         view: new View({
           zoom: 12,
           center: fromLonLat([6.462390,51.278439]),
-          constrainResolution: true
+          constrainResolution: true,
+          enableRotation: false
         }),
       });
       map.addLayer(markers);
