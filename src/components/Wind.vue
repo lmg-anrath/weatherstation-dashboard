@@ -21,7 +21,7 @@ export default {
     async get_data() {
       const res = await (await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=51.3387609&lon=6.5853417&appid=${this.api_key}&units=metric`)).json()
       this.rot = res.wind.deg + 180;
-      this.speed = toFixed(res.wind.speed * 3.6, 2);
+      this.speed = (res.wind.speed * 3.6).toFixed(0);
     }
   },
   async mounted() {
