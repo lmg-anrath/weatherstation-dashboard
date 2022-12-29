@@ -109,6 +109,7 @@
         markers.getSource().addFeature(marker)
       }
       for (let i = 0; i < station_keys.length; i++) {
+        if (![station_keys[i].active) continue;
         const marker = new Vector({
           source: new SourceVector(),
           style: new Style({
