@@ -34,7 +34,7 @@
     </div>
     <div id="scale">
       <div id="scale-inner">
-        <div id="from">
+        <!--<div id="from">
           <div class="fromtohead">VON</div>
           <input aria-label="b" id="from-date" @change="date_change($event)" class="input-time" type="datetime-local">
         </div>
@@ -42,7 +42,8 @@
         <div id="to">
           <div class="fromtohead">BIS</div>
           <input aria-label="a" id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
-        </div>
+        </div>-->
+        <Datepicker v-model="date" range dark placeholder="Bereich für Daten angeben" input-class-name="date-input" menu-class-name="date-menu" @update:model-value="date_changed"></Datepicker>
         <!--<div id="from">
           <div class="fromtohead">VON</div>
           <DatePicker :display="true"></DatePicker>
@@ -58,11 +59,14 @@
 </template>
 
 <script lang="js">
-import DatePicker from '../components/DatePicker.vue';
+//import DatePicker from '../components/DatePicker.vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import { ref } from 'vue';
 
 export default {
   components: {
-    DatePicker,
+    Datepicker,
   },
   data() {
     return {
@@ -71,6 +75,12 @@ export default {
         ['https://race.esa.int/?country=DE&x=1280174.14412&y=6307726.42832&z=2.25857', 'ESA DATEN'],
         ['https://www.lmg-anrath.de/stadt-land-fluss-revisited/', 'WEITERE PROJEKTE']
       ]
+    }
+  },
+  setup() {
+    const date = ref();
+    return {
+      date
     }
   },
   methods: {
@@ -119,12 +129,65 @@ export default {
         min: from_time.toISOString(),
         max: to_time.toISOString()
       });
+    },
+    date_changed(modalData) {
+      const from_time = modalData[0];
+      from_time.setSeconds(15);
+      const to_time = modalData[1];
+      to_time.setSeconds(15);
+      if (from_time > to_time) {
+        alert('Das Startdatum muss vor dem Enddatum liegen!');
+        return;
+      }
+      this.$emit('date_range', {
+        min: from_time.toISOString(),
+        max: to_time.toISOString()
+      });
     }
   }
 }
 </script>
 
 <style>
+  .date-input {
+    background-color: transparent;
+    height: 66px;
+  }
+  .dp__overlay_row {
+    background-color: #272727;
+  }
+  .dp__button {
+    background-color: #313a40
+  }
+  .dp__range_between {
+    background-color: #9393933b;
+  }
+  .dp__theme_dark {
+    --dp-background-color: #17171700;
+    --dp-text-color: #ffffff;
+    --dp-hover-color: #484848;
+    --dp-hover-text-color: #ffffff;
+    --dp-hover-icon-color: #959595;
+    --dp-primary-color: #315452;
+    --dp-primary-text-color: #ffffff;
+    --dp-secondary-color: #a9a9a981;
+    --dp-border-color: #00000035;
+    --dp-menu-border-color: #00000035;
+    --dp-border-color-hover: #aaaeb7;
+    --dp-disabled-color: #737373;
+    --dp-scroll-bar-background: #212121;
+    --dp-scroll-bar-color: #484848;
+    --dp-success-color: #00701a;
+    --dp-success-color-disabled: #428f59;
+    --dp-icon-color: #959595;
+    --dp-danger-color: #e53935;
+    --dp-highlight-color: rgba(0, 92, 178, 0.2);
+  }
+  .date-menu {
+    background-color: rgba(0, 0, 0, 0.153);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+  }
   @media screen and (min-width: 1120px) {
     #ddown {
       display: none;

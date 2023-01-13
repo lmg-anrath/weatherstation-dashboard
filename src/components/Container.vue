@@ -69,10 +69,32 @@ export default {
           return;
         }
       }
+      //var now = new Date();
       var error = {
         error: false,
         error_string: ''
       };
+      //new api
+      /*let err = undefined;
+      let station_keys;
+      try {
+        station_keys = await (await fetch("https://api.wetterstation-lmg.de/v2/stations")).json();
+      } catch (error) {
+        err = new Error(error);
+      }
+      let time_start, time_end, step;
+      if (!date_range) {
+        time_start = now.getTime() - (24 * 60 * 60 * 1000);
+        time_end = new.getTime();
+        step = 15;
+      }
+      const data = await (await fetch(`https://api.wetterstation-lmg.de/v2/stations/aggregate?ids=${e.ids}&start=${e.start}&end=${e.end}%step`)).json();*/
+      try {
+        document.getElementById("charts").classList.add("transition-out")
+      } catch (error) {
+        
+      }
+      
       var station_keys;
       try {
         station_keys = await (await fetch('https://api.wetterstation-lmg.de/stations')).json();
@@ -116,6 +138,12 @@ export default {
         }
       }
       this.use_data = [temp_chart,humi_chart,pres_chart,part_25_chart,part_10_chart];
+      try {
+        document.getElementById("charts").classList.remove("transition-out")
+        document.getElementById("charts").classList.add("transition-in")
+      } catch (error) {
+        
+      }
       if (date_range) {
         this.show_map = true;
         return;
@@ -165,6 +193,14 @@ export default {
       opacity: 1;
     }
   }
+  @keyframes transition-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
   #map-container {
     overflow: hidden;
     height: 350px;
@@ -182,7 +218,13 @@ export default {
   }
   .transition-in {
     animation-name: transition-in;
+    animation-fill-mode: forwards;
     animation-duration: 1s;
+  }
+  .transition-out {
+    animation-name: transition-out;
+    animation-fill-mode: forwards;
+    animation-duration: 0.5s;
   }
   .scale-in {
     animation-name: scale-in;
