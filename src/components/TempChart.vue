@@ -213,7 +213,6 @@ export default {
     font-size: 26px;
     font-weight: 600;
     padding-top: 30px;
-    margin-top: 23px;
     margin-bottom: 15px;
   }
   .heading-link {
@@ -230,23 +229,28 @@ export default {
     background-color: rgba(91, 95, 96, 0.1);
     width: 750px;
     height: 350px;
+    margin-top: 23px;
     border-radius: 15px;
     margin-left: calc(50vw - (750px / 2));
     backdrop-filter: blur(4.1px);
     -webkit-backdrop-filter: blur(4.1px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  .main-chart-container:nth-of-type(2) {
+    border-radius: 0;
   }
   @media screen and (max-width: 776px) {
     .main-chart-container {
       width: 100%;
-      height: 250px;
-      border-radius: 15px;
+      height: 275px;
+      border-radius: 0px;
+      /*margin: 13px 0 0 0;*/
       margin: 0;
       padding: 0;
     }
     .heading {
       width: 100%;
-      padding-top: 13px;
       font-size: 23px;
     }
     .chart-container {

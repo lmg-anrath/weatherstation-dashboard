@@ -5,14 +5,15 @@
     </div>
     <div id="bg" style="">
     </div>
-    <div id="charts">
-      <div v-for="(item, index) in use_data" :key="index">
+    <div id="charts" v-if="use_data.length > 0">
+      <div v-for="(item, index) in use_data" :key="index" class="chart-spawner">
         <div v-if="item != undefined">
-          <TempChart :id="item.type" :data="item.station_data" :chart_type="item.type" />
+          <TempChart class="transition-in scale-in" :id="item.type" :data="item.station_data" :chart_type="item.type" />
         </div>
       </div>
     </div>
-    <div id="x" v-if="show_map">
+    <div id="loading" v-else><h2>Loading Data...</h2></div>
+    <div id="map-container" v-if="show_map">
       <MapContainer :keyi="keyy" :current_data="use_data" />
     </div>
   </div>
@@ -134,6 +135,7 @@ export default {
 <style scoped>
   #main {
     padding-bottom: 50px;
+    min-height: 100vh;
     position: relative;
   }
   #charts {
@@ -144,7 +146,26 @@ export default {
     height: 100vh;
     position: absolute;
   }
-  #x {
+  #loading {
+    width: 100vw;
+    text-align: center;
+    position: absolute;
+  }
+  
+  @keyframes scale-in {
+    0% {
+      height: 0px;
+    }
+  }
+  @keyframes transition-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  #map-container {
     overflow: hidden;
     height: 350px;
     width: 750px;
@@ -153,9 +174,22 @@ export default {
     transition: all 0.1s;
     background-color: rgb(242,243,224);
     border-radius: 15px;
+    opacity: 0;
+    animation-name: transition-in;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+  }
+  .transition-in {
+    animation-name: transition-in;
+    animation-duration: 1s;
+  }
+  .scale-in {
+    animation-name: scale-in;
+    animation-duration: 2s;
   }
   @media screen and (min-width: 1120px) {
-    #x:hover {
+    #map-container:hover {
       width: 80vw;
       height: 80vh;
       margin-left: calc(50vw - (80vw / 2));
@@ -164,7 +198,7 @@ export default {
     }
   }
   @media screen and (max-width: 1120px) {
-    #x {
+    #map-container {
       width: 100%;
       height: 100vw;
       border-radius: 15px;
