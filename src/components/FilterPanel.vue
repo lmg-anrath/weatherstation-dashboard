@@ -94,13 +94,13 @@ export default {
       const panel = document.getElementById('panel');
       const icon = document.getElementById('icon');
       const ddown = document.getElementById('links-ddown-c');
-      if (panel.style.height == '350px') {
+      if (panel.style.height == '475px') {
         document.getElementById('panel').style.height = '100px';
         icon.style.color = 'white';
         ddown.style.opacity = '0';
       }
       else if (panel.style.height == '100px' || panel.style.height == '') {
-        document.getElementById('panel').style.height = '350px';
+        document.getElementById('panel').style.height = '475px';
         icon.style.color = 'rgb(100,100,100)';
         ddown.style.opacity = '1';
       }
@@ -187,6 +187,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.153);
     border-radius: 10px;
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
   @media screen and (min-width: 1120px) {
     #ddown {
@@ -203,17 +204,57 @@ export default {
     .links {
       display: none;
     }
-    #scale {
+    /*#scale {
       display: none !important;
-    }
+    }*/
+    /*#buttons {
+      display: none !important;
+    }*/
     #buttons {
-      display: none !important;
+      padding-top: 35px;
+      padding-left: calc(50vw - (245px / 2) + 2.5px);
+      width: 242.5px !important;
+      height: 88px !important;
     }
     #ddown {
       display: flex;
       align-items: center;
       float: right;
       height: 100px;
+    }
+    .date-input {
+      background-color: transparent;
+      height: 50px;
+    }
+    #scale-inner {
+      height: 50px !important;
+      width: 240px;
+      margin-top: 0 !important;
+      border-radius: 5px !important;
+    }
+    #scale {
+      height: 50px !important;
+      width: 240px;
+      padding-top: 0px;
+      padding-left: calc(50vw - (240px / 2)) !important;
+    }
+    #buttons-container {
+      width: 245px !important;
+    }
+    .time-btn-container {
+      background-color: rgba(126, 134, 167, 0.2);
+      border-radius: 5px;
+      height: 30px;
+      display: inline-block;
+      margin-bottom: 5px;
+      margin-right: 5px;
+    }
+    .time-btn {
+      text-align: center;
+      line-height: 31px;
+      height: 30px;
+      width: 117.5px !important;
+      padding: 0;
     }
   }
   #icon {
@@ -233,7 +274,7 @@ export default {
     padding-right: 30px;
   }
   .links-ddown {
-    padding-top: 40px;
+    padding-top: 30px;
     align-content: center;
     text-align: center;
   }
@@ -296,7 +337,6 @@ export default {
     vertical-align: middle;
     height: 100px;
     width: 145px;
-    
   }
   button {
     cursor:pointer;

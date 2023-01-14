@@ -207,7 +207,7 @@ export default {
     width: 750px;
     margin-left: calc(50vw - (750px / 2));
     margin-top: 30px;
-    transition: all 0.1s;
+    transition: all 0.5s;
     background-color: rgb(242,243,224);
     border-radius: 15px;
     opacity: 0;
