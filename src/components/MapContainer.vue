@@ -138,13 +138,13 @@
         setTimeout(() => {
           map.updateSize();
           window.scrollTo(0, document.body.scrollHeight);
-        },200)
+        },500)
       }
       document.getElementById('map').onmouseleave = () => {
         setTimeout(() => {
           map.updateSize();
           can_upd = true;
-        },200)
+        },500)
       }
       map.on('click', async (e) => {
         const v = map.getFeaturesAtPixel(e.pixel, {hitTolerance: 10})
@@ -210,21 +210,21 @@
     top: 0;
     left: 0;
     position: absolute;
-    margin-left: calc(100vw - (50vw + var(--w) / 2) - 10vw);
+    margin-left: calc(100vw - (50vw + var(--w) / 2) - 2.5vw);
     margin-top: calc(90vh - (50vh + var(--h) / 2)); 
     pointer-events: none;
   }
 
-  @media screen and (min-width: 1120px) {
+  @media screen and (min-width: 776px) {
     #map:hover {
-      height: 80vh;
+      height: 70vh;
     }
     #map {
       height: 350px;
     }
   }
 
-  @media screen and (max-width: 1120px) {
+  @media screen and (max-width: 776px) {
     #overlay {
       --w: 220px;
       --h: 170px;
