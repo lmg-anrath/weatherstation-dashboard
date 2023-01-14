@@ -137,7 +137,10 @@
         can_upd = false
         setTimeout(() => {
           map.updateSize();
-          window.scrollTo(0, document.body.scrollHeight);
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+          });
         },500)
       }
       document.getElementById('map').onmouseleave = () => {
