@@ -43,7 +43,7 @@
           <div class="fromtohead">BIS</div>
           <input aria-label="a" id="to-date" @change="date_change($event)" class="input-time" type="datetime-local">
         </div>-->
-        <Datepicker v-model="date" range dark placeholder="Bereich für Daten angeben" input-class-name="date-input" menu-class-name="date-menu" @update:model-value="date_changed"></Datepicker>
+        <Datepicker v-model="date" range dark placeholder="Bereich für Daten angeben" :auto-position="false" input-class-name="date-input" menu-class-name="date-menu" @update:model-value="date_changed"></Datepicker>
         <!--<div id="from">
           <div class="fromtohead">VON</div>
           <DatePicker :display="true"></DatePicker>
