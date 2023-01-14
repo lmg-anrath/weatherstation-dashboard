@@ -236,6 +236,7 @@ export default {
     -webkit-backdrop-filter: blur(4.1px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    transition: all 0.2s;
   }
   .main-chart-container:nth-of-type(2) {
     border-radius: 0;
@@ -245,6 +246,7 @@ export default {
       width: 100%;
       height: 275px;
       border-radius: 0px;
+      box-shadow: none;
       /*margin: 13px 0 0 0;*/
       margin: 0;
       padding: 0;

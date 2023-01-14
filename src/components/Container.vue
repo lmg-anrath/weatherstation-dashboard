@@ -230,16 +230,16 @@ export default {
     animation-name: scale-in;
     animation-duration: 2s;
   }
-  @media screen and (min-width: 1120px) {
+  @media screen and (min-width: 776px) {
     #map-container:hover {
-      width: 80vw;
-      height: 80vh;
-      margin-left: calc(50vw - (80vw / 2));
+      width: 95vw;
+      height: 70vh;
+      margin-left: calc(50vw - (95vw / 2));
       position: sticky;
       border-radius: 15px;
     }
   }
-  @media screen and (max-width: 1120px) {
+  @media screen and (max-width: 776px) {
     #map-container {
       width: 100%;
       height: 100vw;
