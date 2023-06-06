@@ -4,7 +4,7 @@ Die Website ist wichtig für die Visualisierung der Wetterdaten, die auf dem [Se
 
 ### Erklärung Dateien:
 
-public/ - Alle genutzten Bilder auf der Website
+public/ - Alle genutzten Bilder / Grafiken auf der Website
 
 src/components/ - Einzelteile, aus denen die Website besteht
 
@@ -15,5 +15,12 @@ src/components/ - Einzelteile, aus denen die Website besteht
 - MapContainer.vue | Karte mit Positionen der Wetterstationen
 - MapOverlay.vue | Wird angezeigt bei Click auf Station auf der Karte -> zeigt aktuelle Daten der Station an
 - Seo.vue | Beschreibung der Website + Begriffe für Google Suche
+
+src/layouts/Layout.astro - Layout für alle Seiten im Projekt
+
+src/pages/ - Alle aufrufbaren Pfade der Website (bsp. /map)
+
+- index.astro - Startpunkt der Website bei keinem angegebenen Pfad (https://wetterstation-lmg.de/)
+- 404.astro - Wird angezeigt wenn der aufgerufene Pfad nicht existiert (bsp. /wetter)
 
 .github/workflows/deploy.yaml - Aktualisiert die Website unter https://wetterstation-lmg.de automatisch bei Änderungen
