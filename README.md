@@ -1,5 +1,7 @@
 # Wetterstation Dashboard
 
+Die Website ist wichtig für die Visualisierung der Wetterdaten, die auf dem [Server](https://github.com/lmg-anrath/weatherstation-server) gespeichert sind. Die Daten werden von dem Server abgefragt, richtig formatiert und dann in geeigneten Graphen visualisiert.
+
 ### Erklärung Dateien:
 
 public/ - Alle genutzten Bilder auf der Website
