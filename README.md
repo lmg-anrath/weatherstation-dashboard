@@ -1,6 +1,6 @@
 # Wetterstation Dashboard
 
-Erklärung Dateien:
+### Erklärung Dateien:
 
 public/ - Alle genutzten Bilder auf der Website
 
