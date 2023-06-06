@@ -73,7 +73,9 @@ export default {
       links: [
         ['https://apps.sentinel-hub.com/eo-browser/?zoom=13&lat=51.27781&lng=6.46859&themeId=DEFAULT-THEME&toTime=2022-10-01T14%3A56%3A50.649Z', 'SENTINEL DATEN'],
         ['https://race.esa.int/?country=DE&x=1280174.14412&y=6307726.42832&z=2.25857', 'ESA DATEN'],
-        ['https://www.lmg-anrath.de/stadt-land-fluss-revisited/', 'WEITERE PROJEKTE']
+        ['https://www.lmg-anrath.de/stadt-land-fluss-revisited/', 'WEITERE PROJEKTE'],
+        ['https://www.dwd.de/DE/derdwd/messnetz/atmosphaerenbeobachtung/rasomon/rasomon_node.html', 'HÖHENWETTERDATEN'],
+        ['https://www.dwd.de/DE/leistungen/hobbymet_hw_europa/hobbyhoehenwettereuropa.html?nn=452870', 'HÖHENWETTERMELDUNGEN']
       ]
     }
   },
