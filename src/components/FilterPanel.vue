@@ -96,13 +96,13 @@ export default {
       const panel = document.getElementById('panel');
       const icon = document.getElementById('icon');
       const ddown = document.getElementById('links-ddown-c');
-      if (panel.style.height == '475px') {
+      if (panel.style.height == '575px') {
         document.getElementById('panel').style.height = '100px';
         icon.style.color = 'white';
         ddown.style.opacity = '0';
       }
       else if (panel.style.height == '100px' || panel.style.height == '') {
-        document.getElementById('panel').style.height = '475px';
+        document.getElementById('panel').style.height = '575px';
         icon.style.color = 'rgb(100,100,100)';
         ddown.style.opacity = '1';
       }
