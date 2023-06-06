@@ -3,7 +3,9 @@
 Erklärung Dateien:
 
 public/ - Alle genutzten Bilder auf der Website
-src/components/
+
+src/components/ - Einzelteile, aus denen die Website besteht
+
 - Container.vue | Laden der Daten vom Server -> Anzeigen der Graphen & Karte
 - TempChart.vue | Visualisierung der Daten in Form von Graphen
 - DatePicker.vue | Auswahl des Zeitraums für die Daten
