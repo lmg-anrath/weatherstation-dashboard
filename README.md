@@ -13,3 +13,5 @@ src/components/ - Einzelteile, aus denen die Website besteht
 - MapContainer.vue | Karte mit Positionen der Wetterstationen
 - MapOverlay.vue | Wird angezeigt bei Click auf Station auf der Karte -> zeigt aktuelle Daten der Station an
 - Seo.vue | Beschreibung der Website + Begriffe für Google Suche
+
+.github/workflows/deploy.yaml - Aktualisiert die Website unter https://wetterstation-lmg.de automatisch bei Änderungen
