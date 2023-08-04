@@ -49,6 +49,6 @@ export default {
   img {
     transform-origin: 45% 55%;
   }
-  @media screen and (max-width: 1120px) {
+  @media screen and (max-width: 1370px) {
   }
 </style>

@@ -47,7 +47,7 @@ export default {
     font-size: 22px;
   }
 
-  @media screen and (max-width: 1120px) {
+  @media screen and (max-width: 1370px) {
     #overlay {
       font-size: 12px;
     }

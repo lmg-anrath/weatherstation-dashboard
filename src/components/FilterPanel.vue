@@ -191,7 +191,7 @@ export default {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
-  @media screen and (min-width: 1120px) {
+  @media screen and (min-width: 1370px) {
     #ddown {
       display: none;
     }
@@ -202,7 +202,7 @@ export default {
       height: 100px !important;
     }
   }
-  @media screen and (max-width: 1120px) {
+  @media screen and (max-width: 1370px) {
     .links {
       display: none;
     }
@@ -273,7 +273,8 @@ export default {
     text-align: center;
     vertical-align: middle;
     line-height: 100px;
-    padding-right: 30px;
+    padding-right: 10px;
+    font-size: 15px;
   }
   .links-ddown {
     padding-top: 30px;
@@ -367,7 +368,7 @@ export default {
     display: inline-block;
     vertical-align: middle;
     height: 100px;
-    width: 320px;
+    width: 240px;
     padding-left: 20px;
   }
   #from {
